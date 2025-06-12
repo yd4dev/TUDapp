@@ -1,4 +1,3 @@
-// OilSticker.tsx
 import { DeviceMotion } from 'expo-sensors';
 import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native';
@@ -20,7 +19,7 @@ export default function ValidBadge() {
       const normY = rotation.beta  / (Math.PI/2);
       Animated.spring(pan, {
         toValue: { x: -normX * MAX_OFF, y: -normY * MAX_OFF },
-        useNativeDriver: true,
+        useNativeDriver: false,
         speed: 30,
         bounciness: 0,
       }).start();
