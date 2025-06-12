@@ -1,5 +1,8 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+tuda_logo*
+profile_pic*
+
 # dependencies
 node_modules/
 
@@ -37,3 +40,8 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+# Expo
+.expo
+dist/
+web-build/
