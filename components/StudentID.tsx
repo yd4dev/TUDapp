@@ -1,42 +1,63 @@
 import ValidBadge from '@/components/ValidBadge';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useFocusEffect } from '@react-navigation/native';
+import * as Brightness from 'expo-brightness';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import {
-    Animated,
-    Image as RNImage,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, Image as RNImage, StyleSheet, Text, View } from 'react-native';
 
-import Ionicons from '@expo/vector-icons/Ionicons';
+export function StudentID() {
+  const leftAnim = useRef(new Animated.Value(0)).current;
 
+  useFocusEffect(
+    React.useCallback(() => {
+      let prevBrightness: number | null = null;
+      let permissionGranted = false;
+      let active = true;
 
-import { useEffect, useRef } from 'react';
+      const setBrightnessOnFocus = async () => {
+        const { status } = await Brightness.requestPermissionsAsync();
+        if (status === 'granted' && active) {
+          permissionGranted = true;
+          prevBrightness = await Brightness.getBrightnessAsync();
+          await Brightness.setBrightnessAsync(1.0);
+        } else if (status !== 'granted') {
+          console.warn('Brightness permission not granted');
+        }
+      };
 
-export function StudentID () {
-  const leftAnim = useRef(new Animated.Value(0)).current
+      setBrightnessOnFocus();
+
+      return () => {
+        active = false;
+        if (permissionGranted && prevBrightness !== null) {
+          Brightness.setBrightnessAsync(prevBrightness);
+        }
+      };
+    }, [])
+  );
 
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
         Animated.timing(leftAnim, {
-          toValue: 100, // move right by 100
+          toValue: 100,
           duration: 1500,
-          useNativeDriver: false
+          useNativeDriver: false,
         }),
         Animated.timing(leftAnim, {
-          toValue: 0, // move back to left
+          toValue: 0,
           duration: 1500,
-          useNativeDriver: false
-        })
+          useNativeDriver: false,
+        }),
       ])
-    ).start()
-  }, [leftAnim])
+    ).start();
+  }, [leftAnim]);
 
   return (
     <LinearGradient
-      colors={['#d32b2f', '#b71c1c']}
+      colors={['#F53148', '#D50B21']}
       style={styles.cardContainer}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
@@ -44,22 +65,20 @@ export function StudentID () {
       <Animated.Image
         source={require('@/assets/images/tuda_logo_RGB.png')}
         style={[styles.animatedTudaLogo, { left: leftAnim }]}
-        resizeMode='contain'
+        resizeMode="contain"
       />
       <View style={styles.cardRow}>
         <View style={styles.leftColumn}>
-            <View style={styles.tudLogoBox}>
           <RNImage
-            source={require('@/assets/images/tuda_logo_RGB.png')}
+            source={require('@/assets/images/tuda_logo.png')}
             style={styles.tudLogo}
-            resizeMode='contain'
+            resizeMode="contain"
           />
-          </View>
           <View style={styles.profilePic}>
             <Image
               source={require('@/assets/images/profile_pic.png')}
               style={styles.profilePic}
-              contentFit='cover'
+              contentFit="cover"
             />
           </View>
         </View>
@@ -68,19 +87,13 @@ export function StudentID () {
           <Text style={styles.semesterValue}>SoSe 2025</Text>
           <View style={styles.row}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.label}>Nachname</Text>
-              <Text style={styles.value}>Mustermann</Text>
-              <Text style={styles.label}>Vorname</Text>
-              <Text style={styles.value}>Max</Text>
-              <Text style={styles.label}>Geburtsdatum</Text>
-              <Text style={styles.value}>01.01.2000</Text>
+              <Info label="Nachname" value="Mustermann" />
+              <Info label="Vorname" value="Max" />
+              <Info label="Geburtsdatum" value="01.01.2000" />
             </View>
-            {/* Row for Gültig bis and Matrikelnummer */}
             <View style={{ flex: 1 }}>
-              <Text style={styles.label}>Gültig bis</Text>
-              <Text style={styles.value}>30.09.2025</Text>
-              <Text style={styles.label}>Matrikelnummer</Text>
-              <Text style={styles.value}>1234567</Text>
+              <Info label="Gültig bis" value="30.09.2025" />
+              <Info label="Matrikelnummer" value="1234567" />
             </View>
           </View>
         </View>
@@ -88,20 +101,28 @@ export function StudentID () {
       <View style={styles.infoRow}>
         <Ionicons name="information-circle" size={20} color="#fff" />
         <Text style={styles.infoText}>
-          Ist ordnungsgemäß an der TU Darmstadt im oben genannten Semester
-          immatrikuliert
+          Ist ordnungsgemäß an der TU Darmstadt im oben genannten Semester immatrikuliert
         </Text>
         <ValidBadge />
       </View>
     </LinearGradient>
-  )
+  );
+}
+
+function Info({ label, value }: { label: string; value: string }) {
+  return (
+    <>
+      <Text style={styles.label}>{label}</Text>
+      <Text style={styles.value}>{value}</Text>
+    </>
+  );
 }
 
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    gap: 12, // Optional: adds space between the two columns (React Native >=0.71)
-    marginTop: 8
+    gap: 12,
+    marginTop: 8,
   },
   cardContainer: {
     borderRadius: 20,
@@ -113,8 +134,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    width: '110%',
-    alignSelf: 'center'
+    width: '95%',
+    alignSelf: 'center',
   },
   cardRow: {
     flexDirection: 'row',
@@ -125,10 +146,12 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   tudLogo: {
-    width: 60,
-    height: 60,
-    marginBottom: 8,
-    backgroundColor: "#fff",
+    width: 100,
+    height: 40,
+    marginBottom: 28,
+    backgroundColor: '#fff',
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
   },
   profilePic: {
     width: 100,
@@ -137,11 +160,11 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 16,
     backgroundColor: '#eee',
     marginBottom: 8,
-    marginLeft: 0
+    marginLeft: 0,
   },
   rightColumn: {
     flex: 1,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   semesterLabel: {
     color: '#fff',
@@ -159,12 +182,12 @@ const styles = StyleSheet.create({
   label: {
     color: '#fff',
     fontSize: 12,
-    marginTop: 4
+    marginTop: 4,
   },
   value: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   infoRow: {
     flexDirection: 'row',
@@ -180,27 +203,6 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginLeft: 8,
   },
-  validBadge: {
-    backgroundColor: 'rgba(255,255,255,0.8)',
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  validText: {
-    color: '#7b61ff',
-    fontWeight: 'bold',
-    fontSize: 18,
-    letterSpacing: 1
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute'
-  },
   animatedTudaLogo: {
     position: 'absolute',
     opacity: 0.12,
@@ -208,25 +210,6 @@ const styles = StyleSheet.create({
     height: 320,
     top: 10,
     left: 0,
-    zIndex: 0
+    zIndex: 0,
   },
-  shineOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  shineGradient: {
-    width: '220%',
-    height: '220%',
-    borderRadius: 40,
-    opacity: 0.8
-  },
-  tudLogoBox: {
-    width: 100,
-    height: 60,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    marginBottom: 8
-    }
-})
+});

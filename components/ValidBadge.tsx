@@ -3,8 +3,8 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native';
 
 const { width: SCREEN_W } = Dimensions.get('window');
-const STICKER_W = SCREEN_W * 0.3;
-const STICKER_H = STICKER_W * 0.3;
+const STICKER_W = SCREEN_W * 0.25;
+const STICKER_H = STICKER_W * 0.4;
 const BIG = STICKER_W * 2;
 const MAX_OFF = (BIG - STICKER_W) / 2;
 
@@ -15,10 +15,16 @@ export default function ValidBadge() {
     DeviceMotion.setUpdateInterval(16);
     const sub = DeviceMotion.addListener(({ rotation }) => {
       if (!rotation) return;
-      const normX = rotation.gamma / (Math.PI/2);
-      const normY = rotation.beta  / (Math.PI/2);
+      // Calculate normalized values in [0, 1]
+      const normX = ((rotation.gamma * 1.5 / (Math.PI/2)) + 1) / 2;
+      const normY = ((rotation.beta * 1.5 / (Math.PI/2)) + 1) / 2;
+      // Looping offset using modulo and mapping to [-MAX_OFF, MAX_OFF]
+      const loopX = ((normX % 1) + 1) % 1; // ensure positive
+      const loopY = ((normY % 1) + 1) % 1;
+      const x = -MAX_OFF + loopX * (2 * MAX_OFF);
+      const y = -MAX_OFF + loopY * (2 * MAX_OFF);
       Animated.spring(pan, {
-        toValue: { x: -normX * MAX_OFF, y: -normY * MAX_OFF },
+        toValue: { x, y },
         useNativeDriver: false,
         speed: 30,
         bounciness: 0,
