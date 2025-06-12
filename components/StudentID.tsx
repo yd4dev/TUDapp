@@ -1,91 +1,112 @@
 import ValidBadge from '@/components/ValidBadge';
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Animated, Image as RNImage, StyleSheet, Text, View } from 'react-native';
+import {
+    Animated,
+    Image as RNImage,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native';
+
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 import { useEffect, useRef } from 'react';
 
-export function StudentID() {
+export function StudentID () {
+  const leftAnim = useRef(new Animated.Value(0)).current
 
-      const leftAnim = useRef(new Animated.Value(0)).current;
-    
-      useEffect(() => {
-        Animated.loop(
-          Animated.sequence([
-            Animated.timing(leftAnim, {
-              toValue: 100, // move right by 100
-              duration: 1500,
-              useNativeDriver: false,
-            }),
-            Animated.timing(leftAnim, {
-              toValue: 0, // move back to left
-              duration: 1500,
-              useNativeDriver: false,
-            }),
-          ])
-        ).start();
-      }, [leftAnim]);
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(leftAnim, {
+          toValue: 100, // move right by 100
+          duration: 1500,
+          useNativeDriver: false
+        }),
+        Animated.timing(leftAnim, {
+          toValue: 0, // move back to left
+          duration: 1500,
+          useNativeDriver: false
+        })
+      ])
+    ).start()
+  }, [leftAnim])
 
-    return (
+  return (
     <LinearGradient
-            colors={['#d32b2f', '#b71c1c']}
-            style={styles.cardContainer}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
-            
-          >
-             <Animated.Image
-              source={require('@/assets/images/tuda_logo_RGB.png')}
-              style={[
-                styles.animatedTudaLogo,
-                { left: leftAnim }
-              ]}
-              resizeMode="contain"
-            />
-            <View style={styles.cardRow}>
-              <View style={styles.leftColumn}>
-                <RNImage
-                  source={require('@/assets/images/tuda_logo_RGB.png')}
-                  style={styles.tudLogo}
-                  resizeMode="contain"
-                />
-                <View style={styles.profilePic} >
-                  <Image
-                    source={require('@/assets/images/profile_pic.png')}
-                    style={styles.profilePic}
-                    contentFit="cover"
-                  />
-                </View>
-              </View>
-              <View style={styles.rightColumn}>
-                <Text style={styles.semesterLabel}>Semester</Text>
-                <Text style={styles.semesterValue}>SoSe 2025</Text>
-                <Text style={styles.label}>Nachname</Text>
-                <Text style={styles.value}>Mustermann</Text>
-                <Text style={styles.label}>Vorname</Text>
-                <Text style={styles.value}>Max</Text>
-                <Text style={styles.label}>Geburtsdatum</Text>
-                <Text style={styles.value}>01.01.2000</Text>
-                <Text style={styles.label}>Gültig bis</Text>
-                <Text style={styles.value}>30.09.2025</Text>
-                <Text style={styles.label}>Matrikelnummer</Text>
-                <Text style={styles.value}>1234567</Text>
-              </View>
-            </View>
-            <View style={styles.infoRow}>
-          <Text style={styles.infoText}>
-            Ist ordnungsgemäß an der TU Darmstadt im oben genannten Semester immatrikuliert
-          </Text>
-          <ValidBadge />
+      colors={['#d32b2f', '#b71c1c']}
+      style={styles.cardContainer}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+    >
+      <Animated.Image
+        source={require('@/assets/images/tuda_logo_RGB.png')}
+        style={[styles.animatedTudaLogo, { left: leftAnim }]}
+        resizeMode='contain'
+      />
+      <View style={styles.cardRow}>
+        <View style={styles.leftColumn}>
+            <View style={styles.tudLogoBox}>
+          <RNImage
+            source={require('@/assets/images/tuda_logo_RGB.png')}
+            style={styles.tudLogo}
+            resizeMode='contain'
+          />
           </View>
-          </LinearGradient>
-    )
+          <View style={styles.profilePic}>
+            <Image
+              source={require('@/assets/images/profile_pic.png')}
+              style={styles.profilePic}
+              contentFit='cover'
+            />
+          </View>
+        </View>
+        <View style={styles.rightColumn}>
+          <Text style={styles.semesterLabel}>Semester</Text>
+          <Text style={styles.semesterValue}>SoSe 2025</Text>
+          <View style={styles.row}>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.label}>Nachname</Text>
+              <Text style={styles.value}>Mustermann</Text>
+              <Text style={styles.label}>Vorname</Text>
+              <Text style={styles.value}>Max</Text>
+              <Text style={styles.label}>Geburtsdatum</Text>
+              <Text style={styles.value}>01.01.2000</Text>
+            </View>
+            {/* Row for Gültig bis and Matrikelnummer */}
+            <View style={{ flex: 1 }}>
+              <Text style={styles.label}>Gültig bis</Text>
+              <Text style={styles.value}>30.09.2025</Text>
+              <Text style={styles.label}>Matrikelnummer</Text>
+              <Text style={styles.value}>1234567</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View style={styles.infoRow}>
+        <Ionicons name="information-circle" size={20} color="#fff" />
+        <Text style={styles.infoText}>
+          Ist ordnungsgemäß an der TU Darmstadt im oben genannten Semester
+          immatrikuliert
+        </Text>
+        <ValidBadge />
+      </View>
+    </LinearGradient>
+  )
 }
 
 const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    gap: 12, // Optional: adds space between the two columns (React Native >=0.71)
+    marginTop: 8
+  },
   cardContainer: {
     borderRadius: 20,
-    padding: 18,
+    paddingRight: 18,
+    paddingVertical: 18,
     margin: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -93,7 +114,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     width: '110%',
-    alignSelf: 'center',
+    alignSelf: 'center'
   },
   cardRow: {
     flexDirection: 'row',
@@ -101,24 +122,26 @@ const styles = StyleSheet.create({
   },
   leftColumn: {
     width: 100,
-    alignItems: 'center',
     marginRight: 16,
   },
   tudLogo: {
     width: 60,
     height: 60,
     marginBottom: 8,
+    backgroundColor: "#fff",
   },
   profilePic: {
-    width: 70,
-    height: 100,
-    borderRadius: 8,
+    width: 100,
+    height: 120,
+    borderTopRightRadius: 16,
+    borderBottomRightRadius: 16,
     backgroundColor: '#eee',
     marginBottom: 8,
+    marginLeft: 0
   },
   rightColumn: {
     flex: 1,
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   semesterLabel: {
     color: '#fff',
@@ -131,28 +154,31 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     marginBottom: 8,
+    paddingBottom: 8,
   },
   label: {
     color: '#fff',
     fontSize: 12,
-    marginTop: 4,
+    marginTop: 4
   },
   value: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 16
   },
   infoRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 12,
     justifyContent: 'space-between',
+    marginLeft: 8,
   },
   infoText: {
     color: '#fff',
     fontSize: 12,
     flex: 1,
     marginRight: 8,
+    marginLeft: 8,
   },
   validBadge: {
     backgroundColor: 'rgba(255,255,255,0.8)',
@@ -160,20 +186,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 6,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   validText: {
     color: '#7b61ff',
     fontWeight: 'bold',
     fontSize: 18,
-    letterSpacing: 1,
+    letterSpacing: 1
   },
   reactLogo: {
     height: 178,
     width: 290,
     bottom: 0,
     left: 0,
-    position: 'absolute',
+    position: 'absolute'
   },
   animatedTudaLogo: {
     position: 'absolute',
@@ -182,18 +208,25 @@ const styles = StyleSheet.create({
     height: 320,
     top: 10,
     left: 0,
-    zIndex: 0,
+    zIndex: 0
   },
   shineOverlay: {
-  ...StyleSheet.absoluteFillObject,
-  zIndex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-shineGradient: {
-  width: '220%',
-  height: '220%',
-  borderRadius: 40,
-  opacity: 0.8,
-},
-});
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  shineGradient: {
+    width: '220%',
+    height: '220%',
+    borderRadius: 40,
+    opacity: 0.8
+  },
+  tudLogoBox: {
+    width: 100,
+    height: 60,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    marginBottom: 8
+    }
+})
