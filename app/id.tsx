@@ -239,6 +239,9 @@ export default function ID () {
         options={{
           title: 'Ausweis',
           headerBackTitle: 'Zurück', // Custom back button label
+          headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
+          headerStyle: { backgroundColor: 'none' }, // Transparent header
+          headerTintColor: '#fff', // White back button and title
           headerRight: () => (
             <Button
               title="Edit"
