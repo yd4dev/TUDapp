@@ -65,7 +65,7 @@ export function RSSFeed() {
     <FlatList
       data={entries}
       keyExtractor={item => item.guid}
-      contentContainerStyle={{ padding: 16 }}
+      contentContainerStyle={{ padding: 16, paddingBottom: 94 }} // Increased bottom padding
       renderItem={({ item }) => (
         <TouchableOpacity onPress={() => handlePress(item.guid)} style={rssStyles.card}>
           <Text style={rssStyles.title}>{item.title}</Text>
@@ -87,6 +87,7 @@ export function RSSFeed() {
           )}
         </TouchableOpacity>
       )}
+      ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
     />
   );
 }
@@ -94,29 +95,31 @@ export function RSSFeed() {
 const rssStyles = StyleSheet.create({
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   card: {
-    backgroundColor: '#232325',
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 16,
-    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#f0f0f0',
+    backgroundColor: 'transparent',
+    // Removed marginBottom for consistent FlatList spacing
   },
   title: {
     color: '#fff',
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   date: {
-    color: '#aaa',
-    fontSize: 12,
-    marginBottom: 6,
+    color: '#e0e0e0',
+    fontSize: 15,
+    marginBottom: 1,
   },
   author: {
-    color: '#bbb',
-    fontSize: 13,
-    marginBottom: 4,
+    color: '#cccccc',
+    fontSize: 14,
+    marginBottom: 2,
   },
   desc: {
-    color: '#eee',
+    color: '#f0f0f0',
     fontSize: 15,
     marginTop: 8,
   },
