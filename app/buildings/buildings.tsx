@@ -21,10 +21,6 @@ export default function BuildingsList() {
   React.useEffect(() => {
     navigation.setOptions({
       title: 'Gebäude und Einrichtungen',
-      headerBackTitle: 'Zurück', // Custom back button label
-      headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
-      headerStyle: { backgroundColor: 'none' }, // Transparent header
-      headerTintColor: '#fff', // White back button and title
     });
   }, [navigation]);
   const prefixOrder = ['S', 'L', 'B', 'H', 'W'];

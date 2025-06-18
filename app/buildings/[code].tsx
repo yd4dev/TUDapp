@@ -21,8 +21,6 @@ export default function BuildingDetail() {
     if (building) {
       navigation.setOptions({
          title: building.Name,
-         headerStyle: { backgroundColor: 'none' }, // Transparent header
-         headerTintColor: '#fff', // White back button and title
         });
     }
   }, [building, navigation]);

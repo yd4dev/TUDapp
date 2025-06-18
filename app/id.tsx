@@ -1,6 +1,6 @@
 import { Colors } from '@/constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Stack } from 'expo-router';
+import { useNavigation } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, AppState, Button, KeyboardAvoidingView, Modal, Platform, Image as RNImage, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, useColorScheme } from 'react-native';
 
@@ -223,34 +223,32 @@ export default function ID () {
     }
   };
 
-  const openModal = () => {
+  const openModal = React.useCallback(() => {
     setEditForm(form);
     setModalVisible(true);
-  };
+  }, [form]);
 
   const handleSave = () => {
     setForm(editForm);
     setModalVisible(false);
   };
+  const navigation = useNavigation();
+
+  React.useEffect(() => {
+      navigation.setOptions({
+        title: 'Ausweis',
+        headerRight: () => (
+          <Button
+            title="Edit"
+            onPress={openModal}
+            color={theme.tint}
+          />
+        ),
+      });
+    }, [navigation, openModal, theme.tint]);
 
   return (
     <View style={{ flex: 1 }}>
-      <Stack.Screen
-        options={{
-          title: 'Ausweis',
-          headerBackTitle: 'Zurück', // Custom back button label
-          headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
-          headerStyle: { backgroundColor: 'none' }, // Transparent header
-          headerTintColor: '#fff', // White back button and title
-          headerRight: () => (
-            <Button
-              title="Edit"
-              onPress={openModal}
-              color={theme.tint}
-            />
-          ),
-        }}
-      />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <StudentID
           nachname={form.nachname}

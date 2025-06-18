@@ -1,10 +1,13 @@
-import { RSSFeed } from "@/components/RSSFeed";
-import { View } from "react-native";
+import { RSSFeed } from '@/components/RSSFeed'
+import { useFocusEffect, useNavigation } from 'expo-router'
 
-export default function HomeScreen() {
-  return (
-    <View style={{ marginTop: 50 }}>
-    <RSSFeed />
-    </View>
-  )
+export default function HomeScreen () {
+  const navigation = useNavigation()
+
+  useFocusEffect(() => {
+    navigation.getParent()?.setOptions({
+      title: 'Feed'
+    })
+  })
+  return <RSSFeed />
 }

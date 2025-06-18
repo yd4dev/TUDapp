@@ -1,5 +1,5 @@
 import { Entypo, Feather, FontAwesome5, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from 'expo-router';
+import { useFocusEffect, useNavigation } from 'expo-router';
 import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
@@ -16,6 +16,12 @@ const DATA = [
 
 export default function Studies() {
   const navigation = useNavigation<any>();
+
+  useFocusEffect(() => {
+    navigation.getParent()?.setOptions({
+      title: 'Mein Studium',
+    });
+  });
 
   return (
     <View style={styles.container}>
@@ -41,7 +47,6 @@ export default function Studies() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 50,
     flex: 1,
     paddingHorizontal: 0,
   },
