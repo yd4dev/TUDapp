@@ -6,7 +6,7 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 const DATA = [
   { key: '1', label: 'Ausweis', icon: <MaterialCommunityIcons name="card-account-details-outline" size={24} color="#fff" />, route: 'id' },
   { key: '2', label: 'Moodle TU-Darmstadt', icon: <MaterialCommunityIcons name="compass-outline" size={24} color="#fff" /> },
-  { key: '3', label: 'Bibliothek', icon: <FontAwesome5 name="book-open" size={22} color="#fff" /> },
+  { key: '3', label: 'Bibliothek', icon: <FontAwesome5 name="book-open" size={22} color="#fff" />, route: 'bib/Loans' },
   { key: '4', label: 'Mensa', icon: <MaterialCommunityIcons name="food-apple" size={24} color="#fff" /> },
   { key: '5', label: 'Gebäude und Einrichtungen', icon: <Entypo name="map" size={24} color="#fff" />, route: 'buildings/buildings' },
   { key: '6', label: 'Links', icon: <Feather name="link" size={24} color="#fff" /> },
