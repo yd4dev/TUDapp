@@ -2,7 +2,7 @@ import { Colors } from '@/constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Stack } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Button, KeyboardAvoidingView, Modal, Platform, Image as RNImage, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, useColorScheme } from 'react-native';
+import { Animated, AppState, Button, KeyboardAvoidingView, Modal, Platform, Image as RNImage, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, useColorScheme } from 'react-native';
 
 import ValidBadge from '@/components/ValidBadge';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -33,8 +33,11 @@ export function StudentID({
 }) {
   const leftAnim = useRef(new Animated.Value(0)).current;
 
+  const appState = useRef(AppState.currentState);
+
   useFocusEffect(
     React.useCallback(() => {
+
       let prevBrightness: number | null = null;
       let permissionGranted = false;
       let active = true;
@@ -52,9 +55,24 @@ export function StudentID({
 
       setBrightnessOnFocus();
 
+      const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        setBrightnessOnFocus();
+      } else {
+        Brightness.setBrightnessAsync(prevBrightness || 0.5);
+      }
+
+      appState.current = nextAppState;
+    });
+
       return () => {
+        subscription.remove();
         active = false;
         if (permissionGranted && prevBrightness !== null) {
+          //Brightness.restoreSystemBrightnessAsync();
           Brightness.setBrightnessAsync(prevBrightness);
         }
       };
@@ -220,6 +238,7 @@ export default function ID () {
       <Stack.Screen
         options={{
           title: 'Ausweis',
+          headerBackTitle: 'Zurück', // Custom back button label
           headerRight: () => (
             <Button
               title="Edit"
