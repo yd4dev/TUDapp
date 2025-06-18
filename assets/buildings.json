@@ -1,0 +1,1668 @@
+[
+  {
+    "Gebäude": "S1|01",
+    "Name": "Universitätszentrum, karo 5, Audimax",
+    "Adresse": "Karolinenplatz 5",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Universitätsverwaltung",
+        "link": "https://www.intern.tu-darmstadt.de/verwaltung/index.de.jsp"
+      },
+      {
+        "name": "Dezernat II – Studierendenservice und Hochschulrecht",
+        "link": "https://www.intern.tu-darmstadt.de/dez_ii/"
+      },
+      {
+        "name": "Dezernat III – Finanz- und Wirtschaftsangelegenheiten",
+        "link": "http://www.intern.tu-darmstadt.de/dez_iii/index.de.jsp"
+      },
+      {
+        "name": "Dezernat VI – Forschung und Transfer",
+        "link": "https://www.intern.tu-darmstadt.de/dez_vi/"
+      },
+      {
+        "name": "Dezernat VIII Internationales – Referat VIII A und VIII C",
+        "link": "https://www.intern.tu-darmstadt.de/verwaltung/dez_viii/index.de.jsp"
+      },
+      {
+        "name": "Studierendenservice",
+        "link": "https://www.tu-darmstadt.de/studieren/studierende_tu/service_beratung_studierende/index.de.jsp"
+      },
+      {
+        "name": "Zentrale Studienberatung",
+        "link": "https://www.zsb.tu-darmstadt.de/zsb/index.de.jsp"
+      },
+      {
+        "name": "KIVA VI: Entwicklung Interdisziplinarität",
+        "link": "https://www.intern.tu-darmstadt.de/dez_ii/studienprogramme/kiva_1/KIVA.de.jsp"
+      },
+      {
+        "name": "Audimax, Hörsäle",
+        "link": null
+      },
+      {
+        "name": "karo5 Cafeteria TUbar",
+        "link": "http://studierendenwerkdarmstadt.de/hochschulgastronomie/mensen-bistros/"
+      },
+      {
+        "name": "Fahrradwerkstatt",
+        "link": "https://www.asta.tu-darmstadt.de/asta/de/fahrradwerkstatt"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|02",
+    "Name": "Altes Hauptgebäude (Westflügel)",
+    "Adresse": "Hochschulstraße 3",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "FB Rechts- und Wirtschaftswissenschaften, Fachgebiete",
+        "link": "https://www.wi.tu-darmstadt.de/fachbereich/index.de.jsp"
+      },
+      {
+        "name": "Hochschulrechenzentum (HRZ)",
+        "link": "http://www.hrz.tu-darmstadt.de/home/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|03",
+    "Name": "Altes Hauptgebäude",
+    "Adresse": "Hochschulstraße 1",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "FB Rechts- und Wirtschaftswissenschaften, Dekanat und Studienbüro, Fachgebiete",
+        "link": "https://www.wi.tu-darmstadt.de/fachbereich/index.de.jsp"
+      },
+      {
+        "name": "Sprachenzentrum",
+        "link": "https://www.spz.tu-darmstadt.de/"
+      },
+      {
+        "name": "Hörsäle Seminarräume",
+        "link": null
+      },
+      {
+        "name": "Wilhelm-Köhler-Saal (Vortragssaal)",
+        "link": null
+      },
+      {
+        "name": "Allgemeines Lernzentrum",
+        "link": null
+      },
+      {
+        "name": "Dezernat VII – Personal- und Rechtsangelegenheiten",
+        "link": "http://www.intern.tu-darmstadt.de/dez_vii/d7_ueber_uns/index.de.jsp"
+      },
+      {
+        "name": "Hochschuldidaktische Arbeitsstelle (HDA)",
+        "link": "https://www.hda.tu-darmstadt.de/start_hda/willkommen_hda/index.de.jsp"
+      },
+      {
+        "name": "Stabsstelle IT- und Prozesskoordination",
+        "link": "https://www.intern.tu-darmstadt.de/verwaltung/stabsstellen/it_und_prozess/index.de.jsp"
+      },
+      {
+        "name": "Personalrat",
+        "link": "https://www.personalrat.tu-darmstadt.de/personalrat_1/index.de.jsp"
+      },
+      {
+        "name": "Sozial- und Konfliktberatungsstelle",
+        "link": "https://www.intern.tu-darmstadt.de/sokobe/"
+      },
+      {
+        "name": "Gleichstellungsbeauftragte",
+        "link": "https://www.tu-darmstadt.de/gleichstellungsbeauftragte/"
+      },
+      {
+        "name": "Servicestelle Familie",
+        "link": "http://www.intern.tu-darmstadt.de/servicestellefamilie/"
+      },
+      {
+        "name": "Kunstforum",
+        "link": "https://www.tu-darmstadt.de/kunstforum/index.de.jsp"
+      },
+      {
+        "name": "uniGym",
+        "link": "https://www.usz.tu-darmstadt.de/unigym/index.de.jsp"
+      },
+      {
+        "name": "Allgemeiner Studierendenausschuss (AStA)",
+        "link": "https://www.asta.tu-darmstadt.de/de"
+      },
+      {
+        "name": "TU-books",
+        "link": "https://www.tu-books.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|05",
+    "Name": "Maschinenhaus",
+    "Adresse": "Magdalenenstraße 12",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Georg-Wickop-Hörsaal, Zentrale Seminarräume",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|08",
+    "Name": "Maschinenbau",
+    "Adresse": "Magdalenenstraße 4",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "in Sanierung",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|09",
+    "Name": "Maschinenbauhalle Mitte",
+    "Adresse": "Magdalenenstraße 6",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "in Sanierung",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|10",
+    "Name": "Druckmaschinen",
+    "Adresse": "Magdalenenstraße 2",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "FG Druckmaschinen und Druckverfahren",
+        "link": "https://www.idd.tu-darmstadt.de/idd/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|11",
+    "Name": "Mensa mit Otto-Berndt-Halle",
+    "Adresse": "Alexanderstraße 4",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Studierendenwerk Darmstadt",
+        "link": "http://studentenwerkdarmstadt.de/"
+      },
+      {
+        "name": "Mensa Stadtmitte",
+        "link": "http://studierendenwerkdarmstadt.de/hochschulgastronomie/mensen-bistros/mensa-stadtmitte/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|13",
+    "Name": "Pädagogik / Berufspädagogik",
+    "Adresse": "Alexanderstraße 6",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Lernzentrum Allgemeine Pädagogik und Berufspädagogik",
+        "link": "https://www.abpaed.tu-darmstadt.de/institut_abpaed/einrichtungen_abpaed/bis_abpaed.de.jsp"
+      },
+      {
+        "name": "Zentrum für Lehrerbildung (ZfL)",
+        "link": "https://www.zfl.tu-darmstadt.de/zfl/index.de.jsp"
+      },
+      {
+        "name": "Institut für Allgemeine Pädagogik und Berufspädagogik",
+        "link": "https://www.abpaed.tu-darmstadt.de"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|14",
+    "Name": "Papierfabrikation",
+    "Adresse": "Alexanderstraße 8",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachgebiet Papierfabrikation und Mechanische Verfahrenstechnik",
+        "link": "http://www.pmv.tu-darmstadt.de/fachgebiet_1/informativ_pmv/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|15",
+    "Name": "Psychologie",
+    "Adresse": "Alexanderstraße 10",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Dekanat Humanwissenschaften",
+        "link": "https://www.humanw.tu-darmstadt.de/fachbereich/index.de.jsp"
+      },
+      {
+        "name": "Institut für Psychologie",
+        "link": "https://www.psychologie.tu-darmstadt.de"
+      },
+      {
+        "name": "Lernzentrum Psychologie",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|17",
+    "Name": "Sportwissenschaft (Hofreite Vorderhaus)",
+    "Adresse": "Magdalenenstraße 27",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Institut für Sportwissenschaft",
+        "link": "https://www.sport.tu-darmstadt.de/institut_ifs/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|18",
+    "Name": "Sportwissenschaft (Hofreite Hinterhaus)",
+    "Adresse": "Magdalenenstraße 27",
+    "PLZ_Ort": "64289 Darmstadt"
+  },
+  {
+    "Gebäude": "S1|19",
+    "Name": "Verfügungsgebäude (Container)",
+    "Adresse": "Magdalenenstraße 2A",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Magdalenenstraße 2A, Innenhof",
+        "link": null
+      },
+      {
+        "name": "Instituts für Kernphysik (Arbeitsgruppen)",
+        "link": "https://www.ikp.tu-darmstadt.de"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|20",
+    "Name": "Universitäts- und LandesbibliothekULB",
+    "Adresse": "Magdalenenstraße 8",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Universitäts- und Landesbibliothek (ULB)",
+        "link": "http://www.ulb.tu-darmstadt.de"
+      },
+      {
+        "name": "Patent-und Markenzentrum (PMZ) Rhein- Main",
+        "link": "https://www.piz.tu-darmstadt.de/index/index.de.jsp"
+      },
+      {
+        "name": "Bistro LesBAR",
+        "link": "http://studierendenwerkdarmstadt.de/hochschulgastronomie/mensen-bistros/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|21",
+    "Name": "Kinderhaus II – Stadtmitte",
+    "Adresse": "Magdalenenstraße 25",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Kinderhaus Educcare",
+        "link": "https://www.intern.tu-darmstadt.de/verwaltung/stabsstellen/servicestellefamilie/kinderbetreuung/index.de.jsp"
+      },
+      {
+        "name": "Ingenium",
+        "link": "https://www.tu-darmstadt.de/forschen/wissenschaftlicher_nachwuchs_tu/ingenium_graduiertenorganisation/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|22",
+    "Name": "Karl-Plagge-Haus",
+    "Adresse": "Alexanderstraße 2",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Hochschulrechenzentrum (HRZ)",
+        "link": "http://www.hrz.tu-darmstadt.de/home/index.de.jsp"
+      },
+      {
+        "name": "FB Informatik: FG Scientific Computing",
+        "link": "https://www.informatik.tu-darmstadt.de/sc/fg/index.en.jsp"
+      },
+      {
+        "name": "Hessisches Kompetenzzentrum für Hochleistungsrechnen",
+        "link": "https://www.hkhlr.de/de"
+      },
+      {
+        "name": "Digital Transformation Office (DTO)",
+        "link": "https://www.tu-darmstadt.de/digitalisierung"
+      },
+      {
+        "name": "Informationssicherheit (Infosec)",
+        "link": "https://www.tu-darmstadt.de/it-sicherheit/itsecurity/index.de.jsp"
+      },
+      {
+        "name": "Computer emergency Response Team (TUDa-CERT)",
+        "link": "https://www.tu-darmstadt.de/it-sicherheit/itsecurity_ueberuns/itsecurity_tuda_cert/index.de.jsp"
+      },
+      {
+        "name": "Lernzentrum",
+        "link": null
+      },
+      {
+        "name": "AStA Cafe + Veranstaltungsräume 806 qm",
+        "link": "http://806qm.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S1|60",
+    "Name": "Verwaltung",
+    "Adresse": "Magdalenenstraße 23",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "FiF – Forum interdisziplinäre Forschung",
+        "link": "https://www.fif.tu-darmstadt.de/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|01",
+    "Name": "Rau-Bau",
+    "Adresse": "Hochschulstraße 12",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachbereich Physik – Dekanat",
+        "link": "http://www.physik.tu-darmstadt.de/fbphysik/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|02",
+    "Name": "Robert-Piloty-Gebäude",
+    "Adresse": "Hochschulstraße 10",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachbereich Informatik",
+        "link": "http://www.informatik.tu-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|03",
+    "Name": "Studierendenhaus",
+    "Adresse": "Hochschulstraße 14",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Vereinigung der Universitätsgruppen an der TU Darmstadt e.V.",
+        "link": " https://vug-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|04",
+    "Name": "Festkörperphysik",
+    "Adresse": "Hochschulstraße 8",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Institut für Festkörperphysik in Sanierung",
+        "link": "http://www.fkp.physik.tu-darmstadt.de/"
+      },
+      {
+        "name": "Hörsaal",
+        "link": null
+      },
+      {
+        "name": "Lernzentrum Physik",
+        "link": "http://www.physik.tu-darmstadt.de/einrichtungen/bibliotheken/index.de.jsp"
+      },
+      {
+        "name": "in Sanierung",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|05",
+    "Name": "Physik Werkstätten",
+    "Adresse": "Hochschulstraße 6A",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Institut für Festkörperphysik",
+        "link": "http://www.fkp.physik.tu-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|06",
+    "Name": "Physik Hörsäle",
+    "Adresse": "Hochschulstraße 6",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Hörsaal",
+        "link": null
+      },
+      {
+        "name": "Lernzentrum",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|07",
+    "Name": "Physik Institute",
+    "Adresse": "Hochschulstraße 6",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Institut für Festkörperphysik",
+        "link": "http://www.fkp.physik.tu-darmstadt.de/"
+      },
+      {
+        "name": "Institut für Angewandte Physik",
+        "link": "http://www.iap.tu-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|08",
+    "Name": "Physik Hörsaal Uhrturm",
+    "Adresse": "Hochschulstraße 4",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Hörsaal",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|09",
+    "Name": "Physik Lichttechnik",
+    "Adresse": "Hochschulstraße 4A",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Hochschulstraße 4",
+        "link": null
+      },
+      {
+        "name": "FB Elektrotechnik und Informationstechnik",
+        "link": "https://www.etit.tu-darmstadt.de"
+      },
+      {
+        "name": "Fachgebiet Lichttechnik",
+        "link": "http://www.lichttechnik.tu-darmstadt.de/"
+      },
+      {
+        "name": "Institut für Angewandte Physik",
+        "link": "http://www.iap.tu-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|10",
+    "Name": "Institutsgebäude",
+    "Adresse": "Hochschulstraße 2",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "in Sanierung",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|11",
+    "Name": "Physik Institutsgebäude",
+    "Adresse": "Schlossgartenstraße 2",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Institut für Kernphysik",
+        "link": "http://www.ikp.tu-darmstadt.de/dasinstitut/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|12",
+    "Name": "Institutsgebäude",
+    "Adresse": "Schlossgartenstraße 4",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Sanierung",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|13",
+    "Name": "Fraunhofer-Institut für Betriebsfestigkeit und Systemzuverlässigkeit LBF,Bereich Kunststoffe",
+    "Adresse": "Schlossgartenstraße 6,6A",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Schlossgartenstraße 6, 6A",
+        "link": null
+      },
+      {
+        "name": "Fraunhofer-Institut für Betriebsfestigkeit u.Systemzuverlässigkeit LBF – Bereich Kunststoffe",
+        "link": "http://www.lbf.fraunhofer.de/de/kontakt.html"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|14",
+    "Name": "Kernphysik / S-DALINAC",
+    "Adresse": "Schlossgartenstraße 9",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Institut für Kernphysik",
+        "link": "http://www.ikp.tu-darmstadt.de/dasinstitut/index.de.jsp"
+      },
+      {
+        "name": "S-DALINAC",
+        "link": "http://www.ikp.tu-darmstadt.de/sdalinac_ikp/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|15",
+    "Name": "Mathematik / Physik",
+    "Adresse": "Schlossgartenstraße 7",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachbereich Mathematik Lernzentrum Mathematik (LZM)",
+        "link": "http://www.mathematik.tu-darmstadt.de"
+      },
+      {
+        "name": "Institut für Angewandte Physik",
+        "link": "http://www.iap.tu-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|17",
+    "Name": "Halbleitertechnik",
+    "Adresse": "Schlossgartenstraße 8",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Institut für Teilchenbeschleunigung und Elektromagnetische Felder",
+        "link": "http://www.temf.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|20",
+    "Name": "Zentrum für IT-Sicherheit (CYSEC)",
+    "Adresse": "Pankratiusstraße 2",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Zentrum für IT-Sicherheit (CYSEC)",
+        "link": "https://www.cysec.tu-darmstadt.de/cysec/index.en.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S2|50",
+    "Name": "Physikalisches Grundpraktikum",
+    "Adresse": "Hochschulstraße, bei S2|02",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Hochschulstraße bei S2|02",
+        "link": null
+      },
+      {
+        "name": "Physikalisches Grundpraktikum",
+        "link": "https://www.physik.tu-darmstadt.de/fbphysik/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|05",
+    "Name": "Fraunhofer-Institut für Graphische Datenverarbeitung (IGD)",
+    "Adresse": "Fraunhoferstraße 5",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachgebiet Grafisch-Interaktive Systeme (GRIS)",
+        "link": "https://www.informatik.tu-darmstadt.de/gris/startseite_1/index.de.jsp"
+      },
+      {
+        "name": "Fraunhofer Institut für Graphische Datenverarbeitung IGD",
+        "link": "https://www.igd.fraunhofer.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|06",
+    "Name": "Elektrotechnik und Informationstechnik (Hans-Busch-Institut)",
+    "Adresse": "Merckstraße 25",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachbereich Elektrotechnik und Informationstechnik",
+        "link": "http://www.etit.tu-darmstadt.de/"
+      },
+      {
+        "name": "Lernzentrum",
+        "link": "https://www.etit.tu-darmstadt.de/fachbereich/einrichtungen/kittler_student_center_2/lernzentren_und_pcpools.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|07",
+    "Name": "Ernst-Neufert-Halle",
+    "Adresse": "Rundeturmstraße 1",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Dezernat V – Baumanagement und Technischer Betrieb",
+        "link": null
+      },
+      {
+        "name": "V F – Technischer Betrieb und Energiemanagement",
+        "link": "http://www.intern.tu-darmstadt.de/dez_v/versorgung_technik/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|09",
+    "Name": "Elektrotechnik und InformationstechnikHallen mit Werkstätten",
+    "Adresse": "Landgraf-Georg-Straße 6",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachbereich Elektrotechnik und Informationstechnik",
+        "link": "https://www.etit.tu-darmstadt.de/fachbereich/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|10",
+    "Name": "Elektrotechnik und InformationstechnikInstitute",
+    "Adresse": "Landgraf-Georg-Straße 4",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachbereich Elektrotechnik und Informationstechnik",
+        "link": "http://www.etit.tu-darmstadt.de/"
+      },
+      {
+        "name": "FG Energieinformationsnetze und -systeme",
+        "link": "https://www.eins.tu-darmstadt.de/index.php?id=7"
+      },
+      {
+        "name": "Lernzentrum",
+        "link": "https://www.etit.tu-darmstadt.de/studieren/im_studium_etit/lernzentren_etit/index.de.jsp"
+      },
+      {
+        "name": "Fachschaft",
+        "link": "https://www.fs-etit.de/"
+      },
+      {
+        "name": "Elektrotechnischer Verein an der TU Darmstadt",
+        "link": "http://www.etv-darmstadt.org/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|11",
+    "Name": "Elektrotechnik und InformationstechnikHörsäle",
+    "Adresse": "Landgraf-Georg-Straße 2",
+    "PLZ_Ort": "64283 Darmstadt"
+  },
+  {
+    "Gebäude": "S3|12",
+    "Name": "Wissenschaftsschloss De la Fosse-BauPräsidium der TU Darmstadt, Universitäts- und Landesbibliothek (ULB), Sparkassen-Saal",
+    "Adresse": "Residenzschloss 1",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Präsidium",
+        "link": "https://www.tu-darmstadt.de/universitaet/organisation_verwaltung/praesidium/index.de.jsp"
+      },
+      {
+        "name": "Chief Communication Officer (CCO)",
+        "link": "https://www.tu-darmstadt.de/universitaet/organisation_verwaltung/praesidium/chief_communication_officer_honecker/index.de.jsp"
+      },
+      {
+        "name": "Science Communication Centre (SCC)",
+        "link": "https://www.tu-darmstadt.de/scc/science_communication_centre/index.de.jsp"
+      },
+      {
+        "name": "Dezernat I – Struktur und Strategie",
+        "link": "http://www.intern.tu-darmstadt.de/dez_i/"
+      },
+      {
+        "name": "FB Gesellschafts- und Geschichtswissenschaften",
+        "link": "https://www.gugw.tu-darmstadt.de/"
+      },
+      {
+        "name": "Universitäts – und Landesbibliothek (ULB)",
+        "link": "https://www.ulb.tu-darmstadt.de/die_bibliothek/standorte/index.de.jsp"
+      },
+      {
+        "name": "Sparkassensaal",
+        "link": null
+      },
+      {
+        "name": "Künstlerkeller / Keller-Klub",
+        "link": "https://www.keller-klub.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|13",
+    "Name": "Wissenschaftsschloss Kaisersaalbau, Hörsaal",
+    "Adresse": "Residenzschloss 1",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "FB Gesellschafts- und Geschichtswissenschaften",
+        "link": "https://www.gugw.tu-darmstadt.de/"
+      },
+      {
+        "name": "Hörsaal R30",
+        "link": null
+      },
+      {
+        "name": "Deutsches Poleninstitut (DPI)",
+        "link": "https://www.deutsches-polen-institut.de/institut/"
+      },
+      {
+        "name": "Schlosskeller",
+        "link": "https://www.schlosskeller-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|14",
+    "Name": "Wissenschaftsschloss Kirchenbau, Orgelsaal",
+    "Adresse": "Residenzschloss 1",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Orgelsaal",
+        "link": null
+      },
+      {
+        "name": "Schlossmuseum Darmstadt",
+        "link": "http://schlossmuseum-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|15",
+    "Name": "Wissenschaftsschloss Glockenbau, Schlossmuseum",
+    "Adresse": "Residenzschloss 1",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "FB Gesellschafts- und Geschichtswissenschaften, Institut für Philosophie",
+        "link": "https://www.gugw.tu-darmstadt.de/"
+      },
+      {
+        "name": "Eingang Schlossmuseum Darmstadt",
+        "link": "http://schlossmuseum-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|16",
+    "Name": "Wissenschaftsschloss Wallhaus",
+    "Adresse": "Residenzschloss 1",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Zentrum verantwortungsbewusste Digitalisierung",
+        "link": "https://zevedi.de/ueber-uns/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|17",
+    "Name": "Wissenschaftsschloss Brückenhaus",
+    "Adresse": "Residenzschloss 1",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Schlossgarten Cafe-Bar",
+        "link": "https://www.schlossgarten-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|19",
+    "Name": "Instituts- und Verwaltungsgebäude",
+    "Adresse": "Rundeturmstraße 12",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Rundeturmstraße 12 (Anmietung)",
+        "link": null
+      },
+      {
+        "name": "FB Elektrotechnik und Informationstechnik: Multimedia Communications Lab (KOM)",
+        "link": "https://www.kom.tu-darmstadt.de/en/kom-multimedia-communications-lab/"
+      },
+      {
+        "name": "Fachgebiet Bioinspired Communication Systems (BCS)",
+        "link": "https://www.bcs.tu-darmstadt.de/welcome/index.en.jsp"
+      },
+      {
+        "name": "Dezernat IV – Immobilienmanagement",
+        "link": "https://www.intern.tu-darmstadt.de/dez_iv/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|20",
+    "Name": "Instituts- und Verwaltungsgebäude",
+    "Adresse": "Rundeturmstraße 10",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "FB Elektrotechnik und Informationstechnik: Multimedia Communications Lab (KOM)",
+        "link": "https://www.kom.tu-darmstadt.de/en/kom-multimedia-communications-lab/"
+      },
+      {
+        "name": "Dezernat V – Baumanagement und Technischer Betrieb",
+        "link": "https://www.intern.tu-darmstadt.de/dez_v/willkommen_2/index.de.jsp"
+      },
+      {
+        "name": "Strategische Mobilitätsentwicklung",
+        "link": "https://www.intern.tu-darmstadt.de/verwaltung/dez_v/mobilitaetsmanagement_dezv/index.de.jsp"
+      },
+      {
+        "name": "Freunde der TU Darmstadt",
+        "link": "https://www.freunde.tu-darmstadt.de/freunde_der_tu_freunde/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S3|21",
+    "Name": "Verfügungsgebäude Elektrotechnik",
+    "Adresse": "Fraunhoferstraße 4",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "FB Elektrotechnik und Informationstechnik:",
+        "link": null
+      },
+      {
+        "name": "Dekanat",
+        "link": "http://www.etit.tu-darmstadt.de/fachbereich/index.de.jsp"
+      },
+      {
+        "name": "FG Hochspannungstechnik",
+        "link": "https://www.hst.tu-darmstadt.de/fachgebiet_hochspannungstechnik/home_hst/index.de.jsp"
+      },
+      {
+        "name": "FG Leistungselektronik",
+        "link": "http://www.lea.tu-darmstadt.de/institut_1/aktuelles_9/institut.de.jsp"
+      },
+      {
+        "name": "Electronic Classroom",
+        "link": null
+      },
+      {
+        "name": "Servicezentrum etit",
+        "link": "https://www.etit.tu-darmstadt.de/fachbereich/verwaltung_und_service_etit/servicezentrum_etit/index.de.jsp"
+      },
+      {
+        "name": "PC-Pools",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|01",
+    "Name": "Mollerbau (Haus der Geschichte / Staatsarchiv)",
+    "Adresse": "Karolinenplatz 3",
+    "PLZ_Ort": "64289 Darmstadt",
+    "Departments": [
+      {
+        "name": "Universitätsarchiv",
+        "link": "https://www.ulb.tu-darmstadt.de/ulb/universitaetsarchiv/aufgaben_funktionen.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|02",
+    "Name": "Werkstoffkunde/ Staatliche Materialprüfungsanstalt (MPA)",
+    "Adresse": "Grafenstraße 2",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachgebiet Werkstoffkunde / Staatliche Materialprüfungsanstalt (MPA)",
+        "link": "http://www.mpa-ifw.tu-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|07",
+    "Name": "Studienkolleg für ausländische Studierende",
+    "Adresse": "Poststraße 5",
+    "PLZ_Ort": "64293 Darmstadt",
+    "Departments": [
+      {
+        "name": "Postraße 5",
+        "link": null
+      },
+      {
+        "name": "Studienkolleg für ausländische Studierende",
+        "link": "http://www.stk.tu-darmstadt.de/studienkollegstart/startseite_stk.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|10",
+    "Name": "Institutsgebäude",
+    "Adresse": "Dolivostraße 15",
+    "PLZ_Ort": "64293 Darmstadt",
+    "Departments": [
+      {
+        "name": "FB Mathematik: AG Optimierung",
+        "link": "http://www3.mathematik.tu-darmstadt.de/index.php?id=203"
+      },
+      {
+        "name": "AG Numerik und wissenschaftliches Rechnen",
+        "link": "http://www3.mathematik.tu-darmstadt.de/index.php?id=202"
+      },
+      {
+        "name": "FB Maschinenbau: FG Numerische Berechnungsverfahren im Maschinenbau (FNB)",
+        "link": "http://www.fnb.tu-darmstadt.de/fachgebiet_fnb/index.de.jsp"
+      },
+      {
+        "name": "Graduiertenschule Computational Engineering",
+        "link": "http://www.graduate-school-ce.de"
+      },
+      {
+        "name": "man-da.de GmbH",
+        "link": "https://www.man-da.de"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|13",
+    "Name": "Institutsgebäude",
+    "Adresse": "Bleichstraße 2",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "Dezernat VIII Internationales",
+        "link": null
+      },
+      {
+        "name": "Ref VIIIB Willkommen und Wohnen",
+        "link": "https://www.intern.tu-darmstadt.de/verwaltung/dez_viii/internationales_a_z/artikel_details_de_en_253632.de.jsp"
+      },
+      {
+        "name": "Ref VIIID Welcome Center",
+        "link": "https://www.tu-darmstadt.de/forschen/international_forschen/welcome_centre/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|14",
+    "Name": "FB Informatik, HDT, emergenCity, CCHH, DLR",
+    "Adresse": "Mornewegstraße 26-32",
+    "PLZ_Ort": "64293 Darmstadt",
+    "Departments": [
+      {
+        "name": "Fachbereich Informatik",
+        "link": "http://www.informatik.tu-darmstadt.de/"
+      },
+      {
+        "name": "House of Digital Transformation (HDT)",
+        "link": "http://www.house-of-it.eu/dynasite.cfm?dsmid=15613"
+      },
+      {
+        "name": "emergenCITY",
+        "link": "https://www.emergencity.de/"
+      },
+      {
+        "name": "Deutsches Zentrum für Luft-und Raumfahrt (DLR)",
+        "link": "https://www.dlr.de/DE/Home/home_node.html"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|15",
+    "Name": "Institutsgebäude",
+    "Adresse": "Goethestraße 48,50",
+    "PLZ_Ort": "64285 Darmstadt",
+    "Departments": [
+      {
+        "name": "DLR_School_Lab TU Darmstadt",
+        "link": "http://www.dlr.de/schoollab/desktopdefault.aspx/tabid-12502/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|22",
+    "Name": "Institutsgebäude",
+    "Adresse": "Landwehrstraße 48A-50",
+    "PLZ_Ort": "64293 Darmstadt",
+    "Departments": [
+      {
+        "name": "Landwehrstraße 50A",
+        "link": null
+      },
+      {
+        "name": "FB Elektrotechnik und Informationstechnik",
+        "link": null
+      },
+      {
+        "name": "FG Mess-und Sensortechnik",
+        "link": "https://www.etit.tu-darmstadt.de/must/home_must/index.de.jsp"
+      },
+      {
+        "name": "Seminarräume",
+        "link": null
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|23",
+    "Name": "Institutsgebäude",
+    "Adresse": "Landwehrstraße 50a",
+    "PLZ_Ort": "64293 Darmstadt",
+    "Departments": [
+      {
+        "name": "Landwehrstraße 50A",
+        "link": null
+      },
+      {
+        "name": "Fachbereich Informatik",
+        "link": "http://www.informatik.tu-darmstadt.de/"
+      },
+      {
+        "name": "Hessian AI",
+        "link": "https://hessian.ai/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|26",
+    "Name": "Verwaltungsgebäude",
+    "Adresse": "Feldbergstraße 78",
+    "PLZ_Ort": "64283 Darmstadt",
+    "Departments": [
+      {
+        "name": "SAP Competence Center Hessischer Hochschulen (CCHH)",
+        "link": "http://cchh-hessen.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|28",
+    "Name": "Bürogebäude",
+    "Adresse": "Werner-von-Siemens-Straße 2",
+    "PLZ_Ort": "64319 Pfungstadt"
+  },
+  {
+    "Gebäude": "S4|29",
+    "Name": "Versuchshalle",
+    "Adresse": "Werner-von-Siemens-Straße 2",
+    "PLZ_Ort": "64319 Pfungstadt",
+    "Departments": [
+      {
+        "name": "AKA Flieg",
+        "link": "https://www.akaflieg.tu-darmstadt.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|84",
+    "Name": "Georg-Christoph-Lichtenberg-Haus, Internationales Begegnungszentrum (IBZ)",
+    "Adresse": "Dieburger Straße 241",
+    "PLZ_Ort": "64287 Darmstadt",
+    "Departments": [
+      {
+        "name": "Georg-Christoph-Lichtenberg-Haus / Internationales Begegnungszentrum",
+        "link": "https://www.tu-darmstadt.de/forschen/international_forschen/international_wohnen_in_darmstadt/georg_christoph_lichtenberg_haus/index.de.jsp"
+      }
+    ]
+  },
+  {
+    "Gebäude": "S4|85",
+    "Name": "Reithalle mit Stallungen",
+    "Adresse": "Dieburger Straße 241",
+    "PLZ_Ort": "64287 Darmstadt",
+    "Departments": [
+      {
+        "name": "Reiterverein an der TU Darmstadt e.V.",
+        "link": "https://www.rv-tud.de/"
+      }
+    ]
+  },
+  {
+    "Gebäude": "B1|01",
+    "Name": "Botanik, Zoologie (Institutsgebäude mit Energiehaus)",
+    "Adresse": "Schnittspahnstraße 3",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B1|02",
+    "Name": "Botanik (Altbau)",
+    "Adresse": "Schnittspahnstraße 4",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B1|03",
+    "Name": "Großes Gewächshaus",
+    "Adresse": "Schnittspahnstraße 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B1|04",
+    "Name": "Versuchsgewächshaus",
+    "Adresse": "Schnittspahnstraße 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B1|06",
+    "Name": "Kalthauspflanzen (Gewächshaus)",
+    "Adresse": "Schnittspahnstraße 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B1|07",
+    "Name": "Orchideenhaus (Gewächshaus)",
+    "Adresse": "Schnittspahnstraße 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B1|08",
+    "Name": "Mobi-Office I",
+    "Adresse": "Schnittspahnstraße 2",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B1|70",
+    "Name": "Infopavillon Botanischer Garten",
+    "Adresse": "Botanischer Garten",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|01",
+    "Name": "Angewandte Geowissenschaften und Hörsaal",
+    "Adresse": "Schnittspahnstraße 9",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|02",
+    "Name": "Angewandte Geowissenschaften",
+    "Adresse": "Schnittspahnstraße 9",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|03",
+    "Name": "Biologie Verfügungsgebäude",
+    "Adresse": "Schnittspahnstraße 10",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|04",
+    "Name": "Ökologisches Versuchsgewächshaus",
+    "Adresse": "Schnittspahnstraße 10A",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|05",
+    "Name": "Bioinnovationszentrum I (BIZ I)",
+    "Adresse": "Schnittspahnstraße 12",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|06",
+    "Name": "Bioinnovationszentrum II (BIZ II)",
+    "Adresse": "Schnittspahnstraße 13",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|07",
+    "Name": "Mobi-Office II",
+    "Adresse": "Schnittspahnstraße 15",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|08",
+    "Name": "MerckLifeLab (MLL)",
+    "Adresse": "Schnittspahnstraße 14",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "B2|61",
+    "Name": "Studierendenzentrum Botanik, Cafe Bios",
+    "Adresse": "Schnittspahnstraße 11",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|01",
+    "Name": "Maschinenbau Institute",
+    "Adresse": "Otto-Berndt-Straße 2",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|02",
+    "Name": "Maschinenbauhalle 1, U-Station Maschinenbau",
+    "Adresse": "Jovanka-Bontschits-Straße 3",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|03",
+    "Name": "Maschinenbauhalle 5",
+    "Adresse": "Jovanka-Bontschits-Straße 9",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|04",
+    "Name": "Maschinenbauhalle 4 (Prüfstand)",
+    "Adresse": "Jovanka-Bontschits-Straße 11",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|05",
+    "Name": "Maschinenbauhalle 3",
+    "Adresse": "Ottilie-Bock-Straße 6",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|06",
+    "Name": "Maschinenbauhalle 2",
+    "Adresse": "Ottilie-Bock-Straße 2",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|07",
+    "Name": "Maschinenbauhalle 6",
+    "Adresse": "Jovanka-Bontschits-Straße 10",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|09",
+    "Name": "CO2-Versuchshalle",
+    "Adresse": "Ottilie-Bock-Straße 4",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|10",
+    "Name": "Gerhard-Pahl-Zentrum (Lehrzentrum Maschinenbau)",
+    "Adresse": "Jovanka-Bontschits-Straße 7",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|12",
+    "Name": "Fahrzeughalle",
+    "Adresse": "Ottilie-Bock-Straße 2A",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|13",
+    "Name": "Maschinenakustikhalle SAM",
+    "Adresse": "Jovanka-Bontschits-Straße 1",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|14",
+    "Name": "FlowFactory",
+    "Adresse": "Jovanka-Bontschits-Straße 8",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|16",
+    "Name": "CRA-Gebäude",
+    "Adresse": "Ottilie-Bock-Strasse 3",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L1|17",
+    "Name": "AMC-Gebäude",
+    "Adresse": "Ottilie-Bock-Strasse 1",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|01",
+    "Name": "Materialwissenschaft",
+    "Adresse": "Peter-Grünberg-Straße 2",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|02",
+    "Name": "Organische ChemiePoststelle Lichtwiese",
+    "Adresse": "Peter-Grünberg-Straße 4",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|03",
+    "Name": "Chemiehörsaalgebäude",
+    "Adresse": "Peter-Grünberg-Straße 6",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|04",
+    "Name": "Physikalische Chemie",
+    "Adresse": "Peter-Grünberg-Straße 8",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|05",
+    "Name": "Anorganische Chemie, Merck-TU-Juniorlabor",
+    "Adresse": "Peter-Grünberg-Straße 12",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|06",
+    "Name": "Center of Smart Interfaces (CSI)",
+    "Adresse": "Peter-Grünberg-Straße 10",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|07",
+    "Name": "M³ Laborgebäude",
+    "Adresse": "Peter-Grünberg-Straße 16",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|08",
+    "Name": "Lehrlaborgebäude (LLG)",
+    "Adresse": "El-Lissitzky-Straße 4",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|50",
+    "Name": "Hausverwaltung Chemie",
+    "Adresse": "Peter-Grünberg-Straße 8",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|51",
+    "Name": "Lernzentrum Chemie",
+    "Adresse": "Peter-Grünberg-Straße 8",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L2|66",
+    "Name": "Entsorgungszentrum",
+    "Adresse": "Peter-Grünberg-Straße 14",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L3|01",
+    "Name": "Architektur",
+    "Adresse": "El-Lissitzky-Straße 1",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L3|02",
+    "Name": "Solar Decathlon 2007",
+    "Adresse": "El-Lissitzky-Straße 3",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L3|03",
+    "Name": "Solar Decathlon 2009",
+    "Adresse": "El-Lissitzky-Straße 3A",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L3|60",
+    "Name": "UniKITA, Krabbelgruppen",
+    "Adresse": "El-Lissitzky-Straße 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L3|62",
+    "Name": "Kinderhaus I – Lichtwiese",
+    "Adresse": "El-Lissitzky-Straße 7",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L4|01",
+    "Name": "Mensa LichtwieseLieferanschrift",
+    "Adresse": "Peter-Grünberg-Straße 3",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L4|02",
+    "Name": "Hörsaal- und Medienzentrum (HMZ)",
+    "Adresse": "Franziska-Braun-Straße 10",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|01",
+    "Name": "BauingenieurwesenInstitutsgebäude 1",
+    "Adresse": "Franziska-Braun-Straße 7",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|02",
+    "Name": "Bauingenieurhalle 1",
+    "Adresse": "Günter-Behnisch-Straße 14",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|03",
+    "Name": "Bauingenieurhalle 4",
+    "Adresse": "Günter-Behnisch-Straße 12",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|04",
+    "Name": "Bauingenieurhalle 3",
+    "Adresse": "Günter-Behnisch-Straße 10",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|05",
+    "Name": "Bauingenieurhalle 2",
+    "Adresse": "Günter-Behnisch-Straße 8",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|06",
+    "Name": "Bauingenieurwesen Institutsgebäude 2",
+    "Adresse": "Franziska-Braun-Straße 3",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|07",
+    "Name": "Bauingenieurhalle 5",
+    "Adresse": "Franziska-Braun-Straße 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|08",
+    "Name": "Hochleistungsrechner",
+    "Adresse": "Günter-Behnisch-Straße 4",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|09",
+    "Name": "Glas-Competence-Center (GCC)Bauingenieurwesen",
+    "Adresse": "Günter-Behnisch-Straße 6",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L5|60",
+    "Name": "Wertstoffzentrum",
+    "Adresse": "Günter-Behnisch-Straße 2",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L6|01",
+    "Name": "Institutsgebäude (SI-Gebäude)",
+    "Adresse": "Otto-Berndt-Straße 3",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L6|02",
+    "Name": "Institutsgebäude (SIE-Gebäude)",
+    "Adresse": "Otto-Berndt-Straße 1",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "L6|03",
+    "Name": "ETA-Fabrik",
+    "Adresse": "Eugen-Kogon-Straße 4",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|01",
+    "Name": "Sporthallen",
+    "Adresse": "Nieder-Ramstädter Straße 164",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|02",
+    "Name": "Hochschulstadion, Laufbahn und Sitzterrassen",
+    "Adresse": "Lichtwiesenweg 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|03",
+    "Name": "unifit",
+    "Adresse": "Lichtwiesenweg 15",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|04",
+    "Name": "Hochschulstadion Kinderbadebecken",
+    "Adresse": "Lichtwiesenweg 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|05",
+    "Name": "Hochschulstadion Garderoben",
+    "Adresse": "Lichtwiesenweg 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|06",
+    "Name": "Hochschulstadion Schwimmbad mit Tribüne",
+    "Adresse": "Lichtwiesenweg 5",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|07",
+    "Name": "Kletterhalle Alpenverein",
+    "Adresse": "Lichtwiesenweg 15",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|08",
+    "Name": "Bürogebäude Unisport-Zentrum",
+    "Adresse": "Lichtwiesenweg 3",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|82",
+    "Name": "Otto-Wolfskehl-Haus (Internationales Gästehaus)",
+    "Adresse": "Nieder-Ramstädter-Straße 130,130A",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "H1|84",
+    "Name": "uniKITA – Waldkindergarten",
+    "Adresse": "Lichtwiesenweg 9A",
+    "PLZ_Ort": "64287 Darmstadt"
+  },
+  {
+    "Gebäude": "W1|01",
+    "Name": "Flugtechnik (Labore)",
+    "Adresse": "Flughafenstraße 19",
+    "PLZ_Ort": "64347 Griesheim"
+  },
+  {
+    "Gebäude": "W1|03",
+    "Name": "Flugtechnik (Werkstätten)",
+    "Adresse": "Flughafenstraße 19",
+    "PLZ_Ort": "64347 Griesheim"
+  },
+  {
+    "Gebäude": "W1|04",
+    "Name": "Flugtechnik (Windkanal und Halle)",
+    "Adresse": "Flughafenstraße 19",
+    "PLZ_Ort": "64347 Griesheim"
+  },
+  {
+    "Gebäude": "W1|05",
+    "Name": "Minimaxoffice",
+    "Adresse": "Flughafenstraße 19",
+    "PLZ_Ort": "64347 Griesheim"
+  },
+  {
+    "Gebäude": "W1|06",
+    "Name": "Prüfhalle Hochspannungstrasse (GIL-Halle)",
+    "Adresse": "Flughafenstraße 23",
+    "PLZ_Ort": "64347 Griesheim"
+  },
+  {
+    "Gebäude": "W1|07",
+    "Name": "Bürogebäude",
+    "Adresse": "Flughafenstraße 15",
+    "PLZ_Ort": "64347 Griesheim"
+  },
+  {
+    "Gebäude": "W1|08",
+    "Name": "Halle",
+    "Adresse": "Flughafenstraße 15",
+    "PLZ_Ort": "64347 Griesheim"
+  },
+  {
+    "Gebäude": "W2|01",
+    "Name": "Tower (August-Euler-Informationszentrum)",
+    "Adresse": "August-Euler-Flugplatz 7",
+    "PLZ_Ort": "64295 Darmstadt"
+  },
+  {
+    "Gebäude": "W2|02",
+    "Name": "Halle 1",
+    "Adresse": "August-Euler-Flugplatz 19",
+    "PLZ_Ort": "64295 Darmstadt"
+  },
+  {
+    "Gebäude": "W2|03",
+    "Name": "Halle 2",
+    "Adresse": "August-Euler-Flugplatz 9",
+    "PLZ_Ort": "64295 Darmstadt"
+  },
+  {
+    "Gebäude": "W2|04",
+    "Name": "Halle 3",
+    "Adresse": "August-Euler-Flugplatz 11",
+    "PLZ_Ort": "64295 Darmstadt"
+  },
+  {
+    "Gebäude": "W2|05",
+    "Name": "Douglas DC-8 (August-Euler-Informationszentrum)",
+    "Adresse": "August-Euler-Flugplatz 1",
+    "PLZ_Ort": "64295 Darmstadt"
+  }
+]

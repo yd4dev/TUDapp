@@ -8,7 +8,7 @@ const DATA = [
   { key: '2', label: 'Moodle TU-Darmstadt', icon: <MaterialCommunityIcons name="compass-outline" size={24} color="#fff" /> },
   { key: '3', label: 'Bibliothek', icon: <FontAwesome5 name="book-open" size={22} color="#fff" /> },
   { key: '4', label: 'Mensa', icon: <MaterialCommunityIcons name="food-apple" size={24} color="#fff" /> },
-  { key: '5', label: 'Gebäude und Einrichtungen', icon: <Entypo name="map" size={24} color="#fff" /> },
+  { key: '5', label: 'Gebäude und Einrichtungen', icon: <Entypo name="map" size={24} color="#fff" />, route: 'buildings/buildings' },
   { key: '6', label: 'Links', icon: <Feather name="link" size={24} color="#fff" /> },
   { key: '7', label: 'Skills Portal', icon: <Feather name="zap" size={24} color="#fff" /> },
   { key: '8', label: 'book-n-park', icon: <MaterialIcons name="directions-car" size={24} color="#fff" /> },
@@ -41,7 +41,7 @@ export default function Studies() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: 50,
     flex: 1,
     paddingHorizontal: 0,
   },
