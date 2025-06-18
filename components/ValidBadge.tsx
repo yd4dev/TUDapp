@@ -18,11 +18,12 @@ export default function ValidBadge() {
       // Calculate normalized values in [0, 1]
       const normX = ((rotation.gamma * 1.5 / (Math.PI/2)) + 1) / 2;
       const normY = ((rotation.beta * 1.5 / (Math.PI/2)) + 1) / 2;
-      // Looping offset using modulo and mapping to [-MAX_OFF, MAX_OFF]
-      const loopX = ((normX % 1) + 1) % 1; // ensure positive
-      const loopY = ((normY % 1) + 1) % 1;
-      const x = -MAX_OFF + loopX * (2 * MAX_OFF);
-      const y = -MAX_OFF + loopY * (2 * MAX_OFF);
+      // Clamp to [0, 1] instead of looping
+      const clamp = (v: number) => Math.max(0, Math.min(1, v));
+      const clampedX = clamp(normX);
+      const clampedY = clamp(normY);
+      const x = -MAX_OFF + clampedX * (2 * MAX_OFF);
+      const y = -MAX_OFF + clampedY * (2 * MAX_OFF);
       Animated.spring(pan, {
         toValue: { x, y },
         useNativeDriver: false,
