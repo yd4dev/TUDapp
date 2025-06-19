@@ -9,6 +9,7 @@ import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
 
 import { useColorScheme } from '@/hooks/useColorScheme'
+import { useThemeColor } from '@/hooks/useThemeColor'
 import React from 'react'
 
 export default function RootLayout () {
@@ -17,19 +18,21 @@ export default function RootLayout () {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf')
   })
 
+  const headerBackgroundColor = useThemeColor({}, 'background')
+  const headerTextColor = useThemeColor({}, 'text')
+
   if (!loaded) {
     // Async font loading only occurs in development.
     return null
   }
 
-  
-
+  // Wrap navigation in ThemeProvider to restore navigation theming and background handling
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack
         screenOptions={{
-          headerStyle: { backgroundColor: 'none' },
-          headerTintColor: '#fff',
+          headerStyle: { backgroundColor: headerBackgroundColor },
+          headerTintColor: headerTextColor,
           headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
           headerBackTitle: 'Zurück'
         }}

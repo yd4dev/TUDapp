@@ -1,3 +1,4 @@
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React from 'react';
 import { ActionSheetIOS, Alert, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -17,6 +18,18 @@ export default function BuildingDetail() {
   const navigation = useNavigation();
   const building: Building | undefined = (buildingsData as Building[]).find(b => b.Gebäude === code);
 
+  // Theme colors
+  const backgroundColor = useThemeColor({}, 'background');
+  const titleColor = useThemeColor({}, 'text');
+  const gebColor = useThemeColor({}, 'icon');
+  const addressColor = useThemeColor({}, 'tabIconDefault');
+  const mapButtonColor = useThemeColor({}, 'tint');
+  const mapButtonTextColor = useThemeColor({}, 'background');
+  const deptHeaderColor = useThemeColor({}, 'text');
+  const deptItemColor = useThemeColor({}, 'text');
+  const deptLinkColor = useThemeColor({}, 'tint');
+  const styles = getStyles({ backgroundColor, titleColor, gebColor, addressColor, mapButtonColor, mapButtonTextColor, deptHeaderColor, deptItemColor, deptLinkColor });
+
   React.useEffect(() => {
     if (building) {
       navigation.setOptions({
@@ -27,7 +40,7 @@ export default function BuildingDetail() {
 
   if (!building) {
     return (
-      <View style={styles.center}><Text>Gebäude nicht gefunden.</Text></View>
+      <View style={styles.center}><Text style={styles.title}>Gebäude nicht gefunden.</Text></View>
     );
   }
 
@@ -102,60 +115,74 @@ export default function BuildingDetail() {
   );
 }
 
-const styles = StyleSheet.create({
+// Styles as a function of theme colors
+const getStyles = ({ backgroundColor, titleColor, gebColor, addressColor, mapButtonColor, mapButtonTextColor, deptHeaderColor, deptItemColor, deptLinkColor }: {
+  backgroundColor: string;
+  titleColor: string;
+  gebColor: string;
+  addressColor: string;
+  mapButtonColor: string;
+  mapButtonTextColor: string;
+  deptHeaderColor: string;
+  deptItemColor: string;
+  deptLinkColor: string;
+}) => StyleSheet.create({
   container: {
     padding: 20,
-    flexGrow: 1
+    flexGrow: 1,
+    backgroundColor,
   },
   center: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor,
   },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: '#fff', // Make title bright for dark backgrounds
+    color: titleColor,
   },
   geb: {
     fontSize: 16,
-    color: '#bbb',
+    color: gebColor,
     fontWeight: 'bold',
     marginBottom: 4,
   },
   address: {
     fontSize: 16,
-    color: '#555',
-    marginBottom: 2
+    color: addressColor,
+    marginBottom: 2,
   },
   mapButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: mapButtonColor,
     borderRadius: 8,
     padding: 12,
     marginVertical: 16,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   mapButtonText: {
-    color: 'white',
+    color: mapButtonTextColor,
     fontWeight: 'bold',
-    fontSize: 16
+    fontSize: 16,
   },
   deptSection: {
-    marginTop: 16
+    marginTop: 16,
   },
   deptHeader: {
     fontWeight: 'bold',
     fontSize: 18,
-    marginBottom: 8
+    marginBottom: 8,
+    color: deptHeaderColor,
   },
   deptItem: {
     fontSize: 16,
     marginBottom: 6,
-    color: '#fff' // Ensure visibility for unlinked departments in dark mode
+    color: deptItemColor,
   },
   deptLink: {
-    color: '#007AFF',
-    textDecorationLine: 'underline'
-  }
+    color: deptLinkColor,
+    textDecorationLine: 'underline',
+  },
 });

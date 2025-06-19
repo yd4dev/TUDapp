@@ -1,14 +1,26 @@
+import { useThemeColor } from '@/hooks/useThemeColor';
 import CookieManager from '@react-native-cookies/cookies';
 import { useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import React, { useState } from 'react';
-import { ActivityIndicator, Button, ScrollView, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 // TUfind login URL
 const LOGIN_URL = 'https://tufind.hds.hebis.de/Shibboleth.sso/ULBDA?target=https%3A%2F%2Ftufind.hds.hebis.de%2FMyResearch%2FHome%3Fauth_method%3DShibboleth/';
 
 export default function LoansScreen() {
+  // Theme colors
+  const backgroundColor = useThemeColor({}, 'background');
+  const textColor = useThemeColor({}, 'text');
+  const inputBackground = useThemeColor({}, 'background');
+  const inputBorder = useThemeColor({}, 'icon');
+  const placeholderColor = useThemeColor({}, 'icon');
+  const errorColor = '#e74c3c'; // You can add this to your Colors if you want
+  const buttonColor = useThemeColor({}, 'tint');
+  const cardBackground = useThemeColor({}, 'icon');
+  const styles = getStyles({ backgroundColor, textColor, inputBackground, inputBorder, placeholderColor, errorColor, buttonColor, cardBackground });
+
   const [showWebView, setShowWebView] = useState(false);
   const [loading, setLoading] = useState(false);
   const [html, setHtml] = useState<string | null>(null);
@@ -30,7 +42,6 @@ export default function LoansScreen() {
   const navigation = useNavigation();
 
   React.useEffect(() => {
-
     navigation.setOptions({
       title: "Bibliothek",
     });
@@ -150,8 +161,8 @@ export default function LoansScreen() {
   if (showWebView) {
     // Show loading indicator while WebView is working in the background
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }}>
-        <ActivityIndicator size="large" color="#fff" />
+      <View style={styles.webViewContainer}>
+        <ActivityIndicator size="large" color={textColor} />
         {/* Hidden WebView for background login/fetch */}
         <View style={{ width: 0, height: 0, opacity: 0, position: 'absolute' }}>
           <WebView
@@ -173,27 +184,15 @@ export default function LoansScreen() {
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'transparent', padding: 24 }}>
+    <View style={styles.container}>
       {showData && loggedIn && (
-        <View style={{
-          width: '100%',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 16,
-          marginTop: 8,
-          position: 'absolute',
-          top: 24,
-          left: 24,
-          right: 24,
-          zIndex: 10,
-        }}>
-          <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>
+        <View style={styles.loggedInBar}>
+          <Text style={styles.loggedInText}>
             Eingeloggt als: {username}
           </Text>
           <Button
             title="Logout"
-            color="#e74c3c"
+            color={errorColor}
             onPress={async () => {
               await SecureStore.deleteItemAsync('bib_username');
               await SecureStore.deleteItemAsync('bib_password');
@@ -205,13 +204,13 @@ export default function LoansScreen() {
           />
         </View>
       )}
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+      <View style={styles.centeredContent}>
         {showData && (
           html.includes('Sie haben nichts von uns ausgeliehen.') ? (
-            <Text style={{ color: '#fff', fontSize: 16, marginTop: 24 }}>Du hast aktuell keine Ausleihen.</Text>
+            <Text style={styles.noLoansText}>Du hast aktuell keine Ausleihen.</Text>
           ) : (
-            <ScrollView style={{ marginTop: 24, maxHeight: 300, backgroundColor: '#111', borderRadius: 6, padding: 8, width: 320 }}>
-              <Text style={{ color: '#fff', fontSize: 10 }} selectable>{html}</Text>
+            <ScrollView style={styles.scrollView}>
+              <Text style={styles.htmlText} selectable>{html}</Text>
             </ScrollView>
           )
         )}
@@ -223,27 +222,27 @@ export default function LoansScreen() {
               loginUrlAccessCountRef.current = 0;
               handleShowWebView();
             }}
-            color="#2980b9"
+            color={buttonColor}
           />
         )}
         {!showData && (
-          <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%' }}>
-            <Text style={{ fontSize: 24, color: '#fff', fontWeight: '700', marginBottom: 18 }}>Bibliotheks-Login</Text>
-            <Text style={{ color: '#fff', marginBottom: 8 }}>TU-ID</Text>
+          <View style={styles.loginForm}>
+            <Text style={styles.loginTitle}>Bibliotheks-Login</Text>
+            <Text style={styles.loginLabel}>TU-ID</Text>
             <TextInput
-              style={{ backgroundColor: '#222', color: '#fff', fontSize: 16, width: 280, marginBottom: 12, padding: 12, borderRadius: 10, borderWidth: 1, borderColor: '#333' }}
+              style={styles.input}
               placeholder="Benutzername"
-              placeholderTextColor="#888"
+              placeholderTextColor={placeholderColor}
               autoCapitalize="none"
               value={formUsername}
               onChangeText={setFormUsername}
               textContentType="username"
             />
-            <Text style={{ color: '#fff', marginBottom: 8 }}>Passwort</Text>
+            <Text style={styles.loginLabel}>Passwort</Text>
             <TextInput
-              style={{ backgroundColor: '#222', color: '#fff', fontSize: 16, width: 280, marginBottom: 20, padding: 12, borderRadius: 10, borderWidth: 1, borderColor: '#333' }}
+              style={styles.input}
               placeholder="Passwort"
-              placeholderTextColor="#888"
+              placeholderTextColor={placeholderColor}
               secureTextEntry
               value={formPassword}
               onChangeText={setFormPassword}
@@ -259,12 +258,13 @@ export default function LoansScreen() {
                 loginUrlAccessCountRef.current = 0;
                 handleShowWebView();
               }}
+              color={buttonColor}
             />
           </View>
         )}
-        {loading && !showWebView && <ActivityIndicator style={{ marginTop: 24 }} size="large" color="#fff" />}
+        {loading && !showWebView && <ActivityIndicator style={{ marginTop: 24 }} size="large" color={textColor} />}
         {!showWebView && !html && loginUrlAccessCountRef.current >= LOGIN_URL_THRESHOLD && (
-          <Text style={{ color: 'red', fontSize: 16, marginTop: 24, textAlign: 'center' }}>
+          <Text style={styles.errorText}>
             Login fehlgeschlagen. Bitte überprüfe deine Zugangsdaten oder versuche es später erneut.
           </Text>
         )}
@@ -272,3 +272,100 @@ export default function LoansScreen() {
     </View>
   );
 }
+
+// Styles as a function of theme colors
+const getStyles = ({ backgroundColor, textColor, inputBackground, inputBorder, placeholderColor, errorColor, buttonColor, cardBackground }: {
+  backgroundColor: string;
+  textColor: string;
+  inputBackground: string;
+  inputBorder: string;
+  placeholderColor: string;
+  errorColor: string;
+  buttonColor: string;
+  cardBackground: string;
+}) => StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor,
+    padding: 24,
+  },
+  webViewContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor,
+  },
+  loggedInBar: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+    marginTop: 8,
+    position: 'absolute',
+    top: 24,
+    left: 24,
+    right: 24,
+    zIndex: 10,
+  },
+  loggedInText: {
+    color: textColor,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  centeredContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  noLoansText: {
+    color: textColor,
+    fontSize: 16,
+    marginTop: 24,
+  },
+  scrollView: {
+    marginTop: 24,
+    maxHeight: 300,
+    backgroundColor: cardBackground,
+    borderRadius: 6,
+    padding: 8,
+    width: 320,
+  },
+  htmlText: {
+    color: textColor,
+    fontSize: 10,
+  },
+  loginForm: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
+  loginTitle: {
+    fontSize: 24,
+    color: textColor,
+    fontWeight: '700',
+    marginBottom: 18,
+  },
+  loginLabel: {
+    color: textColor,
+    marginBottom: 8,
+  },
+  input: {
+    backgroundColor: inputBackground,
+    color: textColor,
+    fontSize: 16,
+    width: 280,
+    marginBottom: 12,
+    padding: 12,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: inputBorder,
+  },
+  errorText: {
+    color: errorColor,
+    fontSize: 16,
+    marginTop: 24,
+    textAlign: 'center',
+  },
+});

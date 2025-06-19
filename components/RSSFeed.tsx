@@ -1,3 +1,4 @@
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, LayoutAnimation, Linking, Platform, StyleSheet, Text, TouchableOpacity, UIManager, View } from 'react-native';
@@ -40,6 +41,25 @@ export function RSSFeed() {
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
 
+  // Theme colors
+  const backgroundColor = useThemeColor({}, 'background');
+  const cardBorderColor = useThemeColor({}, 'tabIconDefault');
+  const titleColor = useThemeColor({}, 'text');
+  const dateColor = useThemeColor({}, 'icon');
+  const authorColor = useThemeColor({}, 'icon');
+  const descColor = useThemeColor({}, 'text');
+  const iconColor = useThemeColor({}, 'tint');
+
+  // Generate styles with theme colors
+  const styles = rssStyles({
+    backgroundColor,
+    cardBorderColor,
+    titleColor,
+    dateColor,
+    authorColor,
+    descColor,
+  });
+
   useEffect(() => {
     // Example RSS feed (replace with your own)
     const url = 'https://www.d120.de/rss/feed.de.rss';
@@ -55,8 +75,8 @@ export function RSSFeed() {
 
   if (loading) {
     return (
-      <View style={rssStyles.centered}>
-        <ActivityIndicator size="large" />
+      <View style={[styles.centered, { backgroundColor }]}>
+        <ActivityIndicator size="large" color={iconColor} />
       </View>
     );
   }
@@ -65,23 +85,23 @@ export function RSSFeed() {
     <FlatList
       data={entries}
       keyExtractor={item => item.guid}
-      contentContainerStyle={{ padding: 16, paddingBottom: 94 }} // Increased bottom padding
+      contentContainerStyle={{ padding: 16, paddingBottom: 94, backgroundColor }}
       renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => handlePress(item.guid)} style={rssStyles.card}>
-          <Text style={rssStyles.title}>{item.title}</Text>
-          <Text style={rssStyles.date}>{item.pubDate}</Text>
+        <TouchableOpacity onPress={() => handlePress(item.guid)} style={styles.card}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.date}>{item.pubDate}</Text>
           {item.author ? (
-            <Text style={rssStyles.author}>By {item.author}</Text>
+            <Text style={styles.author}>By {item.author}</Text>
           ) : null}
           {expanded[item.guid] && (
             <>
-              <Text style={rssStyles.desc}>{item.description.replace(/<[^>]+>/g, '')}</Text>
+              <Text style={styles.desc}>{item.description.replace(/<[^>]+>/g, '')}</Text>
               <TouchableOpacity
-                style={rssStyles.linkIconButton}
+                style={styles.linkIconButton}
                 onPress={() => Linking.openURL(item.link)}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
               >
-                <Ionicons name="open-outline" size={20} color="#3b82f6" />
+                <Ionicons name="open-outline" size={20} color={iconColor} />
               </TouchableOpacity>
             </>
           )}
@@ -92,42 +112,57 @@ export function RSSFeed() {
   );
 }
 
-const rssStyles = StyleSheet.create({
-  centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  card: {
-    borderRadius: 14,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: '#f0f0f0',
-    backgroundColor: 'transparent',
-    // Removed marginBottom for consistent FlatList spacing
-  },
-  title: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 2,
-  },
-  date: {
-    color: '#e0e0e0',
-    fontSize: 15,
-    marginBottom: 1,
-  },
-  author: {
-    color: '#cccccc',
-    fontSize: 14,
-    marginBottom: 2,
-  },
-  desc: {
-    color: '#f0f0f0',
-    fontSize: 15,
-    marginTop: 8,
-  },
-  linkIconButton: {
-    marginTop: 6,
-    alignSelf: 'flex-end',
-    padding: 4,
-    borderRadius: 16,
-    backgroundColor: 'transparent',
-  },
-});
+// rssStyles is now a function that takes theme colors and returns the styles
+const rssStyles = ({
+  backgroundColor,
+  cardBorderColor,
+  titleColor,
+  dateColor,
+  authorColor,
+  descColor,
+}: {
+  backgroundColor: string;
+  cardBorderColor: string;
+  titleColor: string;
+  dateColor: string;
+  authorColor: string;
+  descColor: string;
+}) =>
+  StyleSheet.create({
+    centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+    card: {
+      borderRadius: 14,
+      padding: 16,
+      borderWidth: 1,
+      borderColor: cardBorderColor,
+      backgroundColor: 'transparent',
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 2,
+      color: titleColor,
+    },
+    date: {
+      fontSize: 15,
+      marginBottom: 1,
+      color: dateColor,
+    },
+    author: {
+      fontSize: 14,
+      marginBottom: 2,
+      color: authorColor,
+    },
+    desc: {
+      fontSize: 15,
+      marginTop: 8,
+      color: descColor,
+    },
+    linkIconButton: {
+      marginTop: 6,
+      alignSelf: 'flex-end',
+      padding: 4,
+      borderRadius: 16,
+      backgroundColor: 'transparent',
+    },
+  });

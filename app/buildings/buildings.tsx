@@ -1,9 +1,10 @@
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { useNavigation, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import buildingsData from '../../assets/buildings.json';
+import { Colors } from '../../constants/Colors';
 
 
 type Building = {
@@ -18,6 +19,7 @@ export default function BuildingsList() {
   const [search, setSearch] = useState('');
   const router = useRouter();
   const navigation = useNavigation();
+  const colorScheme = useColorScheme() ?? 'light';
   React.useEffect(() => {
     navigation.setOptions({
       title: 'Gebäude und Einrichtungen',
@@ -50,14 +52,30 @@ export default function BuildingsList() {
       return numA - numB;
     });
 
+  // Theme colors
+  const backgroundColor = useThemeColor({}, 'background');
+  // For a beautiful search bar: glassy in dark, slightly elevated in light
+  const inputBackground = colorScheme === 'dark'
+    ? 'rgba(40,40,50,0.7)'
+    : Colors.light.background;
+  const inputText = useThemeColor({}, 'text');
+  const inputBorder = colorScheme === 'dark' ? 'rgba(255,255,255,0.12)' : Colors.light.icon;
+  const placeholderColor = useThemeColor({}, 'icon');
+  const cardBorder = useThemeColor({}, 'tabIconDefault');
+  const gebColor = useThemeColor({}, 'icon');
+  const nameColor = useThemeColor({}, 'text');
+  const addressColor = useThemeColor({}, 'tabIconDefault');
+  const plzColor = useThemeColor({}, 'icon');
+  const styles = getStyles({ backgroundColor, inputBackground, inputText, inputBorder, placeholderColor, cardBorder, gebColor, nameColor, addressColor, plzColor, colorScheme });
+
   return (
-    <ThemedView style={{ flex: 1, padding: 0, backgroundColor: 'transparent' }}>
+    <View style={[styles.container]}>
       <TextInput
         style={styles.input}
         placeholder="Suche Gebäude, Adresse, ..."
         value={search}
         onChangeText={setSearch}
-        placeholderTextColor="#888"
+        placeholderTextColor={placeholderColor}
       />
       <FlatList
         data={filtered}
@@ -68,58 +86,80 @@ export default function BuildingsList() {
             onPress={() => router.push(`/buildings/${encodeURIComponent(item.Gebäude)}`)}
             activeOpacity={0.8}
           >
-            <ThemedText type="title" style={styles.geb}>{item.Gebäude}</ThemedText>
-            <ThemedText type="title" style={styles.name}>{item.Name}</ThemedText>
-            <ThemedText type="default" style={styles.address}>{item.Adresse}</ThemedText>
-            <ThemedText type="default" style={styles.plz}>{item.PLZ_Ort}</ThemedText>
+            <Text style={styles.geb}>{item.Gebäude}</Text>
+            <Text style={styles.name}>{item.Name}</Text>
+            <Text style={styles.address}>{item.Adresse}</Text>
+            <Text style={styles.plz}>{item.PLZ_Ort}</Text>
           </TouchableOpacity>
         )}
         contentContainerStyle={{ padding: 12, paddingBottom: 32 }}
         ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
       />
-    </ThemedView>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
+// Styles as a function of theme colors
+const getStyles = ({ backgroundColor, inputBackground, inputText, inputBorder, placeholderColor, cardBorder, gebColor, nameColor, addressColor, plzColor, colorScheme }: {
+  backgroundColor: string;
+  inputBackground: string;
+  inputText: string;
+  inputBorder: string;
+  placeholderColor: string;
+  cardBorder: string;
+  gebColor: string;
+  nameColor: string;
+  addressColor: string;
+  plzColor: string;
+  colorScheme: string;
+}) => StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor,
+    padding: 0,
+  },
   input: {
     borderWidth: 1,
-    borderColor: '#e0e0e0',
-    borderRadius: 12,
-    padding: 12,
+    borderColor: inputBorder,
+    borderRadius: 14,
+    padding: 14,
     margin: 12,
     fontSize: 16,
-    backgroundColor: '#fafbfc',
-    color: '#222',
-    marginBottom: 0
+    backgroundColor: inputBackground,
+    color: inputText,
+    marginBottom: 0,
+    shadowColor: colorScheme === 'dark' ? '#000' : '#222',
+    shadowOpacity: colorScheme === 'dark' ? 0.5 : 0.08,
+    shadowRadius: colorScheme === 'dark' ? 12 : 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: colorScheme === 'dark' ? 8 : 2,
   },
   card: {
     borderRadius: 14,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#f0f0f0',
-    // Use ThemedView background for card
-    backgroundColor: 'transparent'
+    borderColor: cardBorder,
+    backgroundColor: 'transparent',
   },
   geb: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#e0e0e0', // brighter
-    marginBottom: 2
+    color: gebColor,
+    marginBottom: 2,
   },
   name: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 2,
-    color: '#fff' // brightest
+    color: nameColor,
   },
   address: {
     fontSize: 15,
-    color: '#f0f0f0', // brighter
-    marginBottom: 1
+    color: addressColor,
+    marginBottom: 1,
   },
   plz: {
     fontSize: 14,
-    color: '#cccccc', // brighter
-  }
+    color: plzColor,
+  },
 });
