@@ -39,6 +39,7 @@ export const de = {
   validText: 'Ist ordnungsgemäß an der TU Darmstadt im oben genannten Semester immatrikuliert',
   settings: 'Einstellungen',
   language: 'Sprache',
+  noTitle: 'Kein Titel',
   // Add more as needed
 };
 
@@ -83,6 +84,7 @@ export const en = {
   validText: 'Is properly enrolled at TU Darmstadt for the above semester',
   settings: 'Settings',
   language: 'Language',
+  noTitle: 'No title',
   // Add more as needed
 };
 

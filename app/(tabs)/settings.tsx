@@ -1,12 +1,18 @@
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { EventEmitter } from 'events';
 import Constants from 'expo-constants';
 import { useFocusEffect, useNavigation } from 'expo-router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FEEDS } from '../../constants/feeds';
 import { useLanguage } from '../../constants/LanguageContext';
 
 const GITHUB_URL = 'https://github.com/yd4dev/tudapp';
+const FEED_PREFS_KEY = 'enabled_feeds';
+
+export const feedSettingsEmitter = new EventEmitter();
 
 export default function SettingsScreen() {
 
@@ -17,12 +23,34 @@ export default function SettingsScreen() {
   const themeTint = useThemeColor({}, 'tint');
 
   const navigation = useNavigation();
+  const [enabledFeeds, setEnabledFeeds] = useState<string[]>([]);
 
   useFocusEffect(() => {
     navigation.getParent()?.setOptions({
       title: strings.settings,
     });
   });
+
+  // Load enabled feeds from storage
+  useEffect(() => {
+    (async () => {
+      const stored = await AsyncStorage.getItem(FEED_PREFS_KEY);
+      if (stored) setEnabledFeeds(JSON.parse(stored));
+      else setEnabledFeeds(FEEDS.map(f => f.id)); // default: all enabled
+    })();
+  }, []);
+
+  // Save enabled feeds to storage
+  const toggleFeed = (feedId: string) => {
+    setEnabledFeeds(prev => {
+      const next = prev.includes(feedId)
+        ? prev.filter(id => id !== feedId)
+        : [...prev, feedId];
+      AsyncStorage.setItem(FEED_PREFS_KEY, JSON.stringify(next));
+      feedSettingsEmitter.emit('feedsChanged', next);
+      return next;
+    });
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: themeBackground }]}>  
@@ -42,6 +70,24 @@ export default function SettingsScreen() {
             <Text style={{ color: language === 'en' ? themeBackground : themeText }}>English</Text>
           </TouchableOpacity>
         </View>
+      </View>
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: themeText }]}>Feeds</Text>
+        {FEEDS.map(feed => (
+          <TouchableOpacity
+            key={feed.id}
+            style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}
+            onPress={() => toggleFeed(feed.id)}
+          >
+            <Ionicons
+              name={enabledFeeds.includes(feed.id) ? 'checkbox-outline' : 'square-outline'}
+              size={22}
+              color={enabledFeeds.includes(feed.id) ? themeTint : themeIcon}
+              style={{ marginRight: 10 }}
+            />
+            <Text style={{ color: themeText, fontSize: 16 }}>{feed.name[language] || feed.name.default}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
       <View style={styles.section}>
         <TouchableOpacity style={styles.linkRow} onPress={() => Linking.openURL(GITHUB_URL)}>
