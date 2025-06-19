@@ -11,6 +11,7 @@ import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import React from 'react'
+import { t } from '../constants/i18n'
 
 export default function RootLayout () {
   const colorScheme = useColorScheme()
@@ -34,7 +35,7 @@ export default function RootLayout () {
           headerStyle: { backgroundColor: headerBackgroundColor },
           headerTintColor: headerTextColor,
           headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
-          headerBackTitle: 'Zurück'
+          headerBackTitle: t.back
         }}
       >
         <Stack.Screen name='(tabs)' options={{ headerShown: true }} />

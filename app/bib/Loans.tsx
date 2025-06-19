@@ -5,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import React, { useState } from 'react';
 import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { t } from '../../constants/i18n';
 
 // TUfind login URL
 const LOGIN_URL = 'https://tufind.hds.hebis.de/Shibboleth.sso/ULBDA?target=https%3A%2F%2Ftufind.hds.hebis.de%2FMyResearch%2FHome%3Fauth_method%3DShibboleth/';
@@ -43,7 +44,7 @@ export default function LoansScreen() {
 
   React.useEffect(() => {
     navigation.setOptions({
-      title: "Bibliothek",
+      title: t.library,
     });
 
     (async () => {
@@ -188,10 +189,10 @@ export default function LoansScreen() {
       {showData && loggedIn && (
         <View style={styles.loggedInBar}>
           <Text style={styles.loggedInText}>
-            Eingeloggt als: {username}
+            {t.loggedInAs}{username}
           </Text>
           <Button
-            title="Logout"
+            title={t.logout}
             color={errorColor}
             onPress={async () => {
               await SecureStore.deleteItemAsync('bib_username');
@@ -206,8 +207,8 @@ export default function LoansScreen() {
       )}
       <View style={styles.centeredContent}>
         {showData && (
-          html.includes('Sie haben nichts von uns ausgeliehen.') ? (
-            <Text style={styles.noLoansText}>Du hast aktuell keine Ausleihen.</Text>
+          html.includes("Sie haben nichts von uns ausgeliehen.") ? (
+            <Text style={styles.noLoansText}>{t.noLoans}</Text>
           ) : (
             <ScrollView style={styles.scrollView}>
               <Text style={styles.htmlText} selectable>{html}</Text>
@@ -216,7 +217,7 @@ export default function LoansScreen() {
         )}
         {showData && (
           <Button
-            title="Aktualisieren"
+            title={t.update}
             onPress={() => {
               setHtml(null);
               loginUrlAccessCountRef.current = 0;
@@ -227,21 +228,21 @@ export default function LoansScreen() {
         )}
         {!showData && (
           <View style={styles.loginForm}>
-            <Text style={styles.loginTitle}>Bibliotheks-Login</Text>
-            <Text style={styles.loginLabel}>Bibliotheksausweisnummer</Text>
+            <Text style={styles.loginTitle}>{t.loginTitle}</Text>
+            <Text style={styles.loginLabel}>{t.loginUser}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Benutzername"
+              placeholder={t.loginUser}
               placeholderTextColor={placeholderColor}
               autoCapitalize="none"
               value={formUsername}
               onChangeText={setFormUsername}
               textContentType="username"
             />
-            <Text style={styles.loginLabel}>Passwort</Text>
+            <Text style={styles.loginLabel}>{t.loginPass}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Passwort"
+              placeholder={t.loginPass}
               placeholderTextColor={placeholderColor}
               secureTextEntry
               value={formPassword}
@@ -249,7 +250,7 @@ export default function LoansScreen() {
               textContentType="password"
             />
             <Button
-              title="Login & Ausleihen laden"
+              title={t.loginButton}
               onPress={async () => {
                 await saveCredentials(formUsername, formPassword);
                 setUsername(formUsername);
@@ -264,9 +265,7 @@ export default function LoansScreen() {
         )}
         {loading && !showWebView && <ActivityIndicator style={{ marginTop: 24 }} size="large" color={textColor} />}
         {!showWebView && !html && loginUrlAccessCountRef.current >= LOGIN_URL_THRESHOLD && (
-          <Text style={styles.errorText}>
-            Login fehlgeschlagen. Bitte überprüfe deine Zugangsdaten oder versuche es später erneut.
-          </Text>
+          <Text style={styles.errorText}>{t.loginFailed}</Text>
         )}
       </View>
     </View>

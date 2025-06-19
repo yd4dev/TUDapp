@@ -6,6 +6,7 @@ import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { t } from '../../constants/i18n';
 
 export default function TabLayout() {
   // Use useThemeColor for the active tab tint color
@@ -29,14 +30,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: t.home,
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="myStudies"
         options={{
-          title: 'Mein Studium',
+          title: t.myStudies,
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="graduationcap.fill" color={color} />,
         }}
       />

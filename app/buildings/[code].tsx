@@ -3,6 +3,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React from 'react';
 import { ActionSheetIOS, Alert, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import buildingsData from '../../assets/buildings.json';
+import { t } from '../../constants/i18n';
 
 type Department = { name: string; link: string | null };
 type Building = {
@@ -40,7 +41,7 @@ export default function BuildingDetail() {
 
   if (!building) {
     return (
-      <View style={styles.center}><Text style={styles.title}>Gebäude nicht gefunden.</Text></View>
+      <View style={styles.center}><Text style={styles.title}>{t.notFound}</Text></View>
     );
   }
 
@@ -95,11 +96,11 @@ export default function BuildingDetail() {
       <Text style={styles.address}>{building.Adresse}</Text>
       <Text style={styles.address}>{building.PLZ_Ort}</Text>
       <TouchableOpacity style={styles.mapButton} onPress={openMap}>
-        <Text style={styles.mapButtonText}>In Karte öffnen</Text>
+        <Text style={styles.mapButtonText}>{t.openInMap}</Text>
       </TouchableOpacity>
       {building.Departments && building.Departments.length > 0 && (
         <View style={styles.deptSection}>
-          <Text style={styles.deptHeader}>Abteilungen / Einrichtungen:</Text>
+          <Text style={styles.deptHeader}>{t.departmentsHeader}</Text>
           {building.Departments.map((item, idx) => (
             <TouchableOpacity
               key={item.name + idx}

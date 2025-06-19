@@ -11,6 +11,7 @@ import * as Brightness from 'expo-brightness';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
+import { t } from '../constants/i18n';
 
 
 // Accept props for all dynamic fields
@@ -134,26 +135,24 @@ export function StudentID({
           </View>
         </View>
         <View style={styles.rightColumn}>
-          <Text style={styles.semesterLabel}>Semester</Text>
-          <Text style={styles.semesterValue}>SoSe 2025</Text>
+          <Text style={styles.semesterLabel}>{t.semester}</Text>
+          <Text style={styles.semesterValue}>{t.semesterValue}</Text>
           <View style={styles.row}>
             <View style={{ flex: 1 }}>
-              <Info label="Nachname" value={nachname} />
-              <Info label="Vorname" value={vorname} />
-              <Info label="Geburtsdatum" value={geburtsdatum} />
+              <Info label={t.nachname} value={nachname} />
+              <Info label={t.vorname} value={vorname} />
+              <Info label={t.geburtsdatum} value={geburtsdatum} />
             </View>
             <View style={{ flex: 1 }}>
-              <Info label="Gültig bis" value={expiry} />
-              <Info label="Matrikelnummer" value={matrikelnummer} />
+              <Info label={t.expiry} value={expiry} />
+              <Info label={t.matrikelnummer} value={matrikelnummer} />
             </View>
           </View>
         </View>
       </View>
       <View style={styles.infoRow}>
         <Ionicons name="information-circle" size={20} color="#fff" />
-        <Text style={styles.infoText}>
-          Ist ordnungsgemäß an der TU Darmstadt im oben genannten Semester immatrikuliert
-        </Text>
+        <Text style={styles.infoText}>{t.validText}</Text>
         <ValidBadge />
       </View>
     </LinearGradient>
@@ -236,7 +235,7 @@ export default function ID () {
 
   React.useEffect(() => {
       navigation.setOptions({
-        title: 'Ausweis',
+        title: t.idCard,
         headerRight: () => (
           <Button
             title="Edit"
@@ -276,7 +275,7 @@ export default function ID () {
               { backgroundColor: theme.background, shadowColor: theme.text }
             ]}>
               <View style={[styles.sheetHandle, { backgroundColor: theme.icon }]} />
-              <Text style={[styles.modalTitle, { color: theme.text }]}>Ausweis bearbeiten</Text>
+              <Text style={[styles.modalTitle, { color: theme.text }]}>{t.editId}</Text>
               <TextInput
                 style={[
                   styles.input,
@@ -288,7 +287,7 @@ export default function ID () {
                 ]}
                 value={editForm.nachname}
                 onChangeText={nachname => setEditForm(f => ({ ...f, nachname }))}
-                placeholder="Nachname"
+                placeholder={t.nachname}
                 placeholderTextColor={theme.icon}
                 autoCapitalize="words"
               />
@@ -303,7 +302,7 @@ export default function ID () {
                 ]}
                 value={editForm.vorname}
                 onChangeText={vorname => setEditForm(f => ({ ...f, vorname }))}
-                placeholder="Vorname"
+                placeholder={t.vorname}
                 placeholderTextColor={theme.icon}
                 autoCapitalize="words"
               />
@@ -318,7 +317,7 @@ export default function ID () {
                 ]}
                 value={editForm.geburtsdatum}
                 onChangeText={geburtsdatum => setEditForm(f => ({ ...f, geburtsdatum }))}
-                placeholder="Geburtsdatum"
+                placeholder={t.geburtsdatum}
                 placeholderTextColor={theme.icon}
               />
               <TextInput
@@ -332,7 +331,7 @@ export default function ID () {
                 ]}
                 value={editForm.expiry}
                 onChangeText={expiry => setEditForm(f => ({ ...f, expiry }))}
-                placeholder="Gültig bis"
+                placeholder={t.expiry}
                 placeholderTextColor={theme.icon}
               />
               <TextInput
@@ -346,13 +345,13 @@ export default function ID () {
                 ]}
                 value={editForm.matrikelnummer}
                 onChangeText={matrikelnummer => setEditForm(f => ({ ...f, matrikelnummer }))}
-                placeholder="Matrikelnummer"
+                placeholder={t.matrikelnummer}
                 placeholderTextColor={theme.icon}
                 keyboardType="numeric"
               />
               <View style={styles.modalButtons}>
-                <Button title="Abbrechen" onPress={() => setModalVisible(false)} color={theme.icon} />
-                <Button title="Speichern" onPress={handleSave} color={theme.tint} />
+                <Button title={t.cancel} onPress={() => setModalVisible(false)} color={theme.icon} />
+                <Button title={t.save} onPress={handleSave} color={theme.tint} />
               </View>
             </View>
           </View>

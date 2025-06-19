@@ -2,6 +2,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, LayoutAnimation, Linking, Platform, StyleSheet, Text, TouchableOpacity, UIManager, View } from 'react-native';
+import { t } from '../constants/i18n';
 
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -91,7 +92,7 @@ export function RSSFeed() {
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.date}>{item.pubDate}</Text>
           {item.author ? (
-            <Text style={styles.author}>By {item.author}</Text>
+            <Text style={styles.author}>{t.by} {item.author}</Text>
           ) : null}
           {expanded[item.guid] && (
             <>
