@@ -4,16 +4,17 @@ import { StyleSheet } from 'react-native';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { t } from '../constants/i18n';
+import { useLanguage } from '../constants/LanguageContext';
 
 export default function NotFoundScreen() {
+  const { strings } = useLanguage();
   return (
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
       <ThemedView style={styles.container}>
-        <ThemedText type="title">{t.notFound}</ThemedText>
+        <ThemedText type="title">{strings.notFound}</ThemedText>
         <Link href="/" style={styles.link}>
-          <ThemedText type="link">{t.home}</ThemedText>
+          <ThemedText type="link">{strings.home}</ThemedText>
         </Link>
       </ThemedView>
     </>

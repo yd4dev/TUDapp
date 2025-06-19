@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import buildingsData from '../../assets/buildings.json';
 import { Colors } from '../../constants/Colors';
-import { t } from '../../constants/i18n';
+import { useLanguage } from '../../constants/LanguageContext';
 
 
 type Building = {
@@ -17,15 +17,16 @@ type Building = {
 };
 
 export default function BuildingsList() {
+  const { strings } = useLanguage();
   const [search, setSearch] = useState('');
   const router = useRouter();
   const navigation = useNavigation();
   const colorScheme = useColorScheme() ?? 'light';
   React.useEffect(() => {
     navigation.setOptions({
-      title: t.buildingsTitle,
+      title: strings.buildingsTitle,
     });
-  }, [navigation]);
+  }, [navigation, strings]);
   const prefixOrder = ['S', 'L', 'B', 'H', 'W'];
   const normalizeGeb = (geb: string) => geb.replace(/\s|\|/g, '').toLowerCase();
   const normalizeSearch = (s: string) => s.replace(/\s|\|/g, '').toLowerCase();
@@ -73,7 +74,7 @@ export default function BuildingsList() {
     <View style={[styles.container]}>
       <TextInput
         style={styles.input}
-        placeholder={t.searchPlaceholder}
+        placeholder={strings.searchPlaceholder}
         value={search}
         onChangeText={setSearch}
         placeholderTextColor={placeholderColor}

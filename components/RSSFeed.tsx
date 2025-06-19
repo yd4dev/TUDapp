@@ -2,7 +2,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, LayoutAnimation, Linking, Platform, StyleSheet, Text, TouchableOpacity, UIManager, View } from 'react-native';
-import { t } from '../constants/i18n';
+import { useLanguage } from '../constants/LanguageContext';
 
 // Enable LayoutAnimation on Android
 if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
@@ -41,6 +41,7 @@ export function RSSFeed() {
   const [entries, setEntries] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
+  const { strings } = useLanguage();
 
   // Theme colors
   const backgroundColor = useThemeColor({}, 'background');
@@ -92,7 +93,7 @@ export function RSSFeed() {
           <Text style={styles.title}>{item.title}</Text>
           <Text style={styles.date}>{item.pubDate}</Text>
           {item.author ? (
-            <Text style={styles.author}>{t.by} {item.author}</Text>
+            <Text style={styles.author}>{strings.by} {item.author}</Text>
           ) : null}
           {expanded[item.guid] && (
             <>

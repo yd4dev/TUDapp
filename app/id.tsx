@@ -11,7 +11,7 @@ import * as Brightness from 'expo-brightness';
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
-import { t } from '../constants/i18n';
+import { useLanguage } from '../constants/LanguageContext';
 
 
 // Accept props for all dynamic fields
@@ -35,6 +35,8 @@ export function StudentID({
   const leftAnim = useRef(new Animated.Value(0)).current;
 
   const appState = useRef(AppState.currentState);
+
+  const { strings } = useLanguage();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -135,24 +137,24 @@ export function StudentID({
           </View>
         </View>
         <View style={styles.rightColumn}>
-          <Text style={styles.semesterLabel}>{t.semester}</Text>
-          <Text style={styles.semesterValue}>{t.semesterValue}</Text>
+          <Text style={styles.semesterLabel}>{strings.semester}</Text>
+          <Text style={styles.semesterValue}>{strings.semesterValue}</Text>
           <View style={styles.row}>
             <View style={{ flex: 1 }}>
-              <Info label={t.nachname} value={nachname} />
-              <Info label={t.vorname} value={vorname} />
-              <Info label={t.geburtsdatum} value={geburtsdatum} />
+              <Info label={strings.nachname} value={nachname} />
+              <Info label={strings.vorname} value={vorname} />
+              <Info label={strings.geburtsdatum} value={geburtsdatum} />
             </View>
             <View style={{ flex: 1 }}>
-              <Info label={t.expiry} value={expiry} />
-              <Info label={t.matrikelnummer} value={matrikelnummer} />
+              <Info label={strings.expiry} value={expiry} />
+              <Info label={strings.matrikelnummer} value={matrikelnummer} />
             </View>
           </View>
         </View>
       </View>
       <View style={styles.infoRow}>
         <Ionicons name="information-circle" size={20} color="#fff" />
-        <Text style={styles.infoText}>{t.validText}</Text>
+        <Text style={styles.infoText}>{strings.validText}</Text>
         <ValidBadge />
       </View>
     </LinearGradient>
@@ -182,6 +184,8 @@ export default function ID () {
 
   const colorScheme = useColorScheme();
   const theme = Colors[colorScheme ?? 'light'];
+
+  const { strings } = useLanguage();
 
   // Load saved values on mount
   useEffect(() => {
@@ -235,16 +239,16 @@ export default function ID () {
 
   React.useEffect(() => {
       navigation.setOptions({
-        title: t.idCard,
+        title: strings.idCard,
         headerRight: () => (
           <Button
-            title="Edit"
+            title={strings.editId}
             onPress={openModal}
             color={theme.tint}
           />
         ),
       });
-    }, [navigation, openModal, theme.tint]);
+    }, [navigation, openModal, theme.tint, strings]);
 
   return (
     <View style={{ flex: 1 }}>
@@ -275,7 +279,7 @@ export default function ID () {
               { backgroundColor: theme.background, shadowColor: theme.text }
             ]}>
               <View style={[styles.sheetHandle, { backgroundColor: theme.icon }]} />
-              <Text style={[styles.modalTitle, { color: theme.text }]}>{t.editId}</Text>
+              <Text style={[styles.modalTitle, { color: theme.text }]}>{strings.editId}</Text>
               <TextInput
                 style={[
                   styles.input,
@@ -287,7 +291,7 @@ export default function ID () {
                 ]}
                 value={editForm.nachname}
                 onChangeText={nachname => setEditForm(f => ({ ...f, nachname }))}
-                placeholder={t.nachname}
+                placeholder={strings.nachname}
                 placeholderTextColor={theme.icon}
                 autoCapitalize="words"
               />
@@ -302,7 +306,7 @@ export default function ID () {
                 ]}
                 value={editForm.vorname}
                 onChangeText={vorname => setEditForm(f => ({ ...f, vorname }))}
-                placeholder={t.vorname}
+                placeholder={strings.vorname}
                 placeholderTextColor={theme.icon}
                 autoCapitalize="words"
               />
@@ -317,7 +321,7 @@ export default function ID () {
                 ]}
                 value={editForm.geburtsdatum}
                 onChangeText={geburtsdatum => setEditForm(f => ({ ...f, geburtsdatum }))}
-                placeholder={t.geburtsdatum}
+                placeholder={strings.geburtsdatum}
                 placeholderTextColor={theme.icon}
               />
               <TextInput
@@ -331,7 +335,7 @@ export default function ID () {
                 ]}
                 value={editForm.expiry}
                 onChangeText={expiry => setEditForm(f => ({ ...f, expiry }))}
-                placeholder={t.expiry}
+                placeholder={strings.expiry}
                 placeholderTextColor={theme.icon}
               />
               <TextInput
@@ -345,13 +349,13 @@ export default function ID () {
                 ]}
                 value={editForm.matrikelnummer}
                 onChangeText={matrikelnummer => setEditForm(f => ({ ...f, matrikelnummer }))}
-                placeholder={t.matrikelnummer}
+                placeholder={strings.matrikelnummer}
                 placeholderTextColor={theme.icon}
                 keyboardType="numeric"
               />
               <View style={styles.modalButtons}>
-                <Button title={t.cancel} onPress={() => setModalVisible(false)} color={theme.icon} />
-                <Button title={t.save} onPress={handleSave} color={theme.tint} />
+                <Button title={strings.cancel} onPress={() => setModalVisible(false)} color={theme.icon} />
+                <Button title={strings.save} onPress={handleSave} color={theme.tint} />
               </View>
             </View>
           </View>

@@ -28,7 +28,7 @@ export const de = {
   feed: 'Feed',
   semester: 'Semester',
   semesterValue: 'SoSe 2025',
-  editId: 'Ausweis bearbeiten',
+  editId: 'Bearbeiten',
   cancel: 'Abbrechen',
   save: 'Speichern',
   nachname: 'Nachname',
@@ -37,6 +37,8 @@ export const de = {
   expiry: 'Gültig bis',
   matrikelnummer: 'Matrikelnummer',
   validText: 'Ist ordnungsgemäß an der TU Darmstadt im oben genannten Semester immatrikuliert',
+  settings: 'Einstellungen',
+  language: 'Sprache',
   // Add more as needed
 };
 
@@ -70,7 +72,7 @@ export const en = {
   feed: 'Feed',
   semester: 'Semester',
   semesterValue: 'Summer 2025',
-  editId: 'Edit ID Card',
+  editId: 'Edit',
   cancel: 'Cancel',
   save: 'Save',
   nachname: 'Last Name',
@@ -79,9 +81,9 @@ export const en = {
   expiry: 'Valid Until',
   matrikelnummer: 'Matriculation Number',
   validText: 'Is properly enrolled at TU Darmstadt for the above semester',
+  settings: 'Settings',
+  language: 'Language',
   // Add more as needed
 };
 
-export type LocaleStrings = typeof de;
-
-export const t: LocaleStrings = de; 
+export type LocaleStrings = typeof de; 

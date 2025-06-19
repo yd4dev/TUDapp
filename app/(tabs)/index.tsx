@@ -1,13 +1,14 @@
 import { RSSFeed } from '@/components/RSSFeed'
 import { useFocusEffect, useNavigation } from 'expo-router'
-import { t } from '../../constants/i18n'
+import { useLanguage } from '../../constants/LanguageContext'
 
 export default function HomeScreen () {
+  const { strings } = useLanguage()
   const navigation = useNavigation()
 
   useFocusEffect(() => {
     navigation.getParent()?.setOptions({
-      title: t.feed
+      title: strings.feed
     })
   })
   return <RSSFeed />

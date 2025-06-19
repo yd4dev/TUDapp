@@ -11,7 +11,7 @@ import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { useThemeColor } from '@/hooks/useThemeColor'
 import React from 'react'
-import { t } from '../constants/i18n'
+import { LanguageProvider } from '../constants/LanguageContext'
 
 export default function RootLayout () {
   const colorScheme = useColorScheme()
@@ -29,19 +29,21 @@ export default function RootLayout () {
 
   // Wrap navigation in ThemeProvider to restore navigation theming and background handling
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack
-        screenOptions={{
-          headerStyle: { backgroundColor: headerBackgroundColor },
-          headerTintColor: headerTextColor,
-          headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
-          headerBackTitle: t.back
-        }}
-      >
-        <Stack.Screen name='(tabs)' options={{ headerShown: true }} />
-        <Stack.Screen name='+not-found' />
-      </Stack>
-      <StatusBar style='auto' />
-    </ThemeProvider>
+    <LanguageProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack
+          screenOptions={{
+            headerStyle: { backgroundColor: headerBackgroundColor },
+            headerTintColor: headerTextColor,
+            headerTitleStyle: { fontSize: 20, fontWeight: 'bold' },
+            headerBackTitle: '' // We'll set this dynamically in screens
+          }}
+        >
+          <Stack.Screen name='(tabs)' options={{ headerShown: true }} />
+          <Stack.Screen name='+not-found' />
+        </Stack>
+        <StatusBar style='auto' />
+      </ThemeProvider>
+    </LanguageProvider>
   )
 }

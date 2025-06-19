@@ -5,12 +5,13 @@ import * as SecureStore from 'expo-secure-store';
 import React, { useState } from 'react';
 import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { t } from '../../constants/i18n';
+import { useLanguage } from '../../constants/LanguageContext';
 
 // TUfind login URL
 const LOGIN_URL = 'https://tufind.hds.hebis.de/Shibboleth.sso/ULBDA?target=https%3A%2F%2Ftufind.hds.hebis.de%2FMyResearch%2FHome%3Fauth_method%3DShibboleth/';
 
 export default function LoansScreen() {
+  const { strings } = useLanguage();
   // Theme colors
   const backgroundColor = useThemeColor({}, 'background');
   const textColor = useThemeColor({}, 'text');
@@ -44,7 +45,7 @@ export default function LoansScreen() {
 
   React.useEffect(() => {
     navigation.setOptions({
-      title: t.library,
+      title: strings.library,
     });
 
     (async () => {
@@ -55,7 +56,7 @@ export default function LoansScreen() {
       setFormUsername(storedUser || '');
       setFormPassword(storedPass || '');
     })();
-  }, [navigation]);
+  }, [navigation, strings]);
 
   // Save credentials
   async function saveCredentials(user: string, pass: string) {
@@ -189,10 +190,10 @@ export default function LoansScreen() {
       {showData && loggedIn && (
         <View style={styles.loggedInBar}>
           <Text style={styles.loggedInText}>
-            {t.loggedInAs}{username}
+            {strings.loggedInAs}{username}
           </Text>
           <Button
-            title={t.logout}
+            title={strings.logout}
             color={errorColor}
             onPress={async () => {
               await SecureStore.deleteItemAsync('bib_username');
@@ -208,7 +209,7 @@ export default function LoansScreen() {
       <View style={styles.centeredContent}>
         {showData && (
           html.includes("Sie haben nichts von uns ausgeliehen.") ? (
-            <Text style={styles.noLoansText}>{t.noLoans}</Text>
+            <Text style={styles.noLoansText}>{strings.noLoans}</Text>
           ) : (
             <ScrollView style={styles.scrollView}>
               <Text style={styles.htmlText} selectable>{html}</Text>
@@ -217,7 +218,7 @@ export default function LoansScreen() {
         )}
         {showData && (
           <Button
-            title={t.update}
+            title={strings.update}
             onPress={() => {
               setHtml(null);
               loginUrlAccessCountRef.current = 0;
@@ -228,21 +229,21 @@ export default function LoansScreen() {
         )}
         {!showData && (
           <View style={styles.loginForm}>
-            <Text style={styles.loginTitle}>{t.loginTitle}</Text>
-            <Text style={styles.loginLabel}>{t.loginUser}</Text>
+            <Text style={styles.loginTitle}>{strings.loginTitle}</Text>
+            <Text style={styles.loginLabel}>{strings.loginUser}</Text>
             <TextInput
               style={styles.input}
-              placeholder={t.loginUser}
+              placeholder={strings.loginUser}
               placeholderTextColor={placeholderColor}
               autoCapitalize="none"
               value={formUsername}
               onChangeText={setFormUsername}
               textContentType="username"
             />
-            <Text style={styles.loginLabel}>{t.loginPass}</Text>
+            <Text style={styles.loginLabel}>{strings.loginPass}</Text>
             <TextInput
               style={styles.input}
-              placeholder={t.loginPass}
+              placeholder={strings.loginPass}
               placeholderTextColor={placeholderColor}
               secureTextEntry
               value={formPassword}
@@ -250,7 +251,7 @@ export default function LoansScreen() {
               textContentType="password"
             />
             <Button
-              title={t.loginButton}
+              title={strings.loginButton}
               onPress={async () => {
                 await saveCredentials(formUsername, formPassword);
                 setUsername(formUsername);
@@ -265,7 +266,7 @@ export default function LoansScreen() {
         )}
         {loading && !showWebView && <ActivityIndicator style={{ marginTop: 24 }} size="large" color={textColor} />}
         {!showWebView && !html && loginUrlAccessCountRef.current >= LOGIN_URL_THRESHOLD && (
-          <Text style={styles.errorText}>{t.loginFailed}</Text>
+          <Text style={styles.errorText}>{strings.loginFailed}</Text>
         )}
       </View>
     </View>

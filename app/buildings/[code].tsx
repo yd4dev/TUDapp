@@ -3,7 +3,7 @@ import { useLocalSearchParams, useNavigation } from 'expo-router';
 import React from 'react';
 import { ActionSheetIOS, Alert, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import buildingsData from '../../assets/buildings.json';
-import { t } from '../../constants/i18n';
+import { useLanguage } from '../../constants/LanguageContext';
 
 type Department = { name: string; link: string | null };
 type Building = {
@@ -17,6 +17,7 @@ type Building = {
 export default function BuildingDetail() {
   const { code } = useLocalSearchParams<{ code: string }>();
   const navigation = useNavigation();
+  const { strings } = useLanguage();
   const building: Building | undefined = (buildingsData as Building[]).find(b => b.Gebäude === code);
 
   // Theme colors
@@ -41,7 +42,7 @@ export default function BuildingDetail() {
 
   if (!building) {
     return (
-      <View style={styles.center}><Text style={styles.title}>{t.notFound}</Text></View>
+      <View style={styles.center}><Text style={styles.title}>{strings.notFound}</Text></View>
     );
   }
 
@@ -96,11 +97,11 @@ export default function BuildingDetail() {
       <Text style={styles.address}>{building.Adresse}</Text>
       <Text style={styles.address}>{building.PLZ_Ort}</Text>
       <TouchableOpacity style={styles.mapButton} onPress={openMap}>
-        <Text style={styles.mapButtonText}>{t.openInMap}</Text>
+        <Text style={styles.mapButtonText}>{strings.openInMap}</Text>
       </TouchableOpacity>
       {building.Departments && building.Departments.length > 0 && (
         <View style={styles.deptSection}>
-          <Text style={styles.deptHeader}>{t.departmentsHeader}</Text>
+          <Text style={styles.deptHeader}>{strings.departmentsHeader}</Text>
           {building.Departments.map((item, idx) => (
             <TouchableOpacity
               key={item.name + idx}

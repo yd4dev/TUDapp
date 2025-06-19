@@ -3,9 +3,10 @@ import { Entypo, Feather, FontAwesome5, MaterialCommunityIcons, MaterialIcons } 
 import { useFocusEffect, useNavigation } from 'expo-router';
 import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { t } from '../../constants/i18n';
+import { useLanguage } from '../../constants/LanguageContext';
 
 export default function Studies() {
+  const { strings } = useLanguage();
   const navigation = useNavigation<any>();
 
   // Theme colors
@@ -20,19 +21,19 @@ export default function Studies() {
 
   // DATA array with dynamic icon color
   const DATA = [
-    { key: '1', label: t.idCard ?? 'Ausweis', icon: <MaterialCommunityIcons name="card-account-details-outline" size={24} color={iconColor} />, route: 'id' },
-    { key: '2', label: t.moodle ?? 'Moodle TU-Darmstadt', icon: <MaterialCommunityIcons name="compass-outline" size={24} color={iconColor} /> },
-    { key: '3', label: t.library ?? 'Bibliothek', icon: <FontAwesome5 name="book-open" size={22} color={iconColor} />, route: 'bib/Loans' },
-    { key: '4', label: t.mensa ?? 'Mensa', icon: <MaterialCommunityIcons name="food-apple" size={24} color={iconColor} /> },
-    { key: '5', label: t.buildings ?? 'Gebäude und Einrichtungen', icon: <Entypo name="map" size={24} color={iconColor} />, route: 'buildings/buildings' },
-    { key: '6', label: t.links ?? 'Links', icon: <Feather name="link" size={24} color={iconColor} /> },
-    { key: '7', label: t.skillsPortal ?? 'Skills Portal', icon: <Feather name="zap" size={24} color={iconColor} /> },
-    { key: '8', label: t.booknpark ?? 'book-n-park', icon: <MaterialIcons name="directions-car" size={24} color={iconColor} /> },
+    { key: '1', label: strings.idCard, icon: <MaterialCommunityIcons name="card-account-details-outline" size={24} color={iconColor} />, route: 'id' },
+    { key: '2', label: strings.moodle, icon: <MaterialCommunityIcons name="compass-outline" size={24} color={iconColor} /> },
+    { key: '3', label: strings.library, icon: <FontAwesome5 name="book-open" size={22} color={iconColor} />, route: 'bib/Loans' },
+    { key: '4', label: strings.mensa, icon: <MaterialCommunityIcons name="food-apple" size={24} color={iconColor} /> },
+    { key: '5', label: strings.buildings, icon: <Entypo name="map" size={24} color={iconColor} />, route: 'buildings/buildings' },
+    { key: '6', label: strings.links, icon: <Feather name="link" size={24} color={iconColor} /> },
+    { key: '7', label: strings.skillsPortal, icon: <Feather name="zap" size={24} color={iconColor} /> },
+    { key: '8', label: strings.booknpark, icon: <MaterialIcons name="directions-car" size={24} color={iconColor} /> },
   ];
 
   useFocusEffect(() => {
     navigation.getParent()?.setOptions({
-      title: t.myStudies,
+      title: strings.myStudies,
     });
   });
 
