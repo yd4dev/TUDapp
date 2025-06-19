@@ -228,7 +228,7 @@ export default function LoansScreen() {
         {!showData && (
           <View style={styles.loginForm}>
             <Text style={styles.loginTitle}>Bibliotheks-Login</Text>
-            <Text style={styles.loginLabel}>TU-ID</Text>
+            <Text style={styles.loginLabel}>Bibliotheksausweisnummer</Text>
             <TextInput
               style={styles.input}
               placeholder="Benutzername"
