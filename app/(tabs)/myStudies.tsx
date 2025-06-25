@@ -1,8 +1,8 @@
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { Entypo, Feather, FontAwesome5, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Entypo, FontAwesome5, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import { useFocusEffect, useNavigation } from 'expo-router';
 import React from 'react';
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useLanguage } from '../../constants/LanguageContext';
 
 export default function Studies() {
@@ -19,16 +19,11 @@ export default function Studies() {
   // Styles with theme colors
   const styles = getStyles({ backgroundColor, textColor, iconColor, chevronColor, separatorColor });
 
-  // DATA array with dynamic icon color
+  // DATA array with dynamic icon color (only items with a route)
   const DATA = [
-    { key: '1', label: strings.idCard, icon: <MaterialCommunityIcons name="card-account-details-outline" size={24} color={iconColor} />, route: 'id' },
-    { key: '2', label: strings.moodle, icon: <MaterialCommunityIcons name="compass-outline" size={24} color={iconColor} /> },
-    { key: '3', label: strings.library, icon: <FontAwesome5 name="book-open" size={22} color={iconColor} />, route: 'bib/Loans' },
-    { key: '4', label: strings.mensa, icon: <MaterialCommunityIcons name="food-apple" size={24} color={iconColor} /> },
-    { key: '5', label: strings.buildings, icon: <Entypo name="map" size={24} color={iconColor} />, route: 'buildings/buildings' },
-    { key: '6', label: strings.links, icon: <Feather name="link" size={24} color={iconColor} /> },
-    { key: '7', label: strings.skillsPortal, icon: <Feather name="zap" size={24} color={iconColor} /> },
-    { key: '8', label: strings.booknpark, icon: <MaterialIcons name="directions-car" size={24} color={iconColor} /> },
+    { key: '1', label: strings.idCard, icon: <MaterialCommunityIcons name="card-account-details-outline" size={28} color={iconColor} />, route: 'id' },
+    { key: '3', label: strings.library, icon: <FontAwesome5 name="book-open" size={26} color={iconColor} />, route: 'bib/Loans' },
+    { key: '5', label: strings.buildings, icon: <Entypo name="map" size={28} color={iconColor} />, route: 'buildings/buildings' },
   ];
 
   useFocusEffect(() => {
@@ -39,22 +34,18 @@ export default function Studies() {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={DATA}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.row}
-            onPress={() => item.route && navigation.navigate(item.route)}
-          >
-            <View style={styles.icon}>{item.icon}</View>
-            <Text style={styles.label}>{item.label}</Text>
-            <MaterialIcons name="chevron-right" size={24} color={chevronColor} style={styles.chevron} />
-          </TouchableOpacity>
-        )}
-        keyExtractor={item => item.key}
-        contentContainerStyle={{ paddingVertical: 16 }}
-      />
+      {DATA.map(item => (
+        <TouchableOpacity
+          key={item.key}
+          style={styles.row}
+          onPress={() => item.route && navigation.navigate(item.route)}
+          activeOpacity={0.85}
+        >
+          <View style={styles.icon}>{item.icon}</View>
+          <Text style={styles.label}>{item.label}</Text>
+          <MaterialIcons name="chevron-right" size={28} color={chevronColor} style={styles.chevron} />
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }
@@ -71,31 +62,41 @@ const getStyles = ({ backgroundColor, textColor, iconColor, chevronColor, separa
     flex: 1,
     paddingHorizontal: 0,
     backgroundColor,
+    marginTop: -150,
+    justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 18,
-    paddingHorizontal: 24,
-    backgroundColor: 'transparent',
+    paddingVertical: 22,
+    paddingHorizontal: 32,
+    backgroundColor: 'rgba(0,0,0,0.03)',
+    borderRadius: 16,
+    marginHorizontal: 16,
+    marginBottom: 18,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
   },
   icon: {
-    width: 32,
+    width: 40,
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: 20,
   },
   label: {
     flex: 1,
     color: textColor,
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: '500',
+    letterSpacing: 0.2,
   },
   chevron: {
     marginLeft: 8,
-    // color is set via prop
   },
   separator: {
-    height: 1,
-    backgroundColor: separatorColor,
-    marginLeft: 72,
+    height: 12,
+    backgroundColor: 'transparent',
   },
 });

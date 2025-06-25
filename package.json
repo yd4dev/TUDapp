@@ -20,6 +20,7 @@
     "css-select": "^5.1.0",
     "events": "^3.3.0",
     "expo": "~53.0.11",
+    "expo-application": "^6.1.4",
     "expo-blur": "~14.1.5",
     "expo-brightness": "~13.1.4",
     "expo-constants": "~17.1.6",

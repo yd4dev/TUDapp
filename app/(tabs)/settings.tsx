@@ -2,11 +2,11 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventEmitter } from 'events';
-import Constants from 'expo-constants';
+import * as Application from 'expo-application';
 import { useFocusEffect, useNavigation } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FEEDS } from '../../constants/feeds';
 import { useLanguage } from '../../constants/LanguageContext';
 
@@ -96,14 +96,16 @@ export default function SettingsScreen() {
           <Text style={[styles.linkText, { color: themeTint }]}>GitHub</Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.bottom}>
-        <Text style={{ color: themeIcon, fontSize: 13, textAlign: 'center' }}>
-          Made with <Ionicons name="heart" size={13} color="#e74c3c" style={{ top: 1 }} /> in Germany
-        </Text>
+      <SafeAreaView style={styles.bottom}>
+        <TouchableOpacity onPress={() => WebBrowser.openBrowserAsync('https://www.app.tu-darmstadt.de/app/wo-kann-ich-christian/')}>
+          <Text style={{ color: themeIcon, fontSize: 13, textAlign: 'center' }}>
+            Made with <Ionicons name="heart" size={13} color="#e74c3c" style={{ top: 1 }} /> in Germany
+          </Text>
+        </TouchableOpacity>
         <Text style={{ color: themeIcon, fontSize: 12, textAlign: 'center', marginTop: 2 }}>
-          v{Constants.expoConfig?.version ?? (Constants as any).manifest?.version ?? (Constants as any).manifest2?.version ?? '1.0.0'}
+          v{Application.nativeApplicationVersion ?? '1.0.0'}
         </Text>
-      </View>
+      </SafeAreaView>
     </View>
   );
 }
@@ -149,10 +151,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   bottom: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 24,
+    marginBottom: 24,
     alignItems: 'center',
   },
 });

@@ -144,6 +144,7 @@ export function RSSFeed() {
   const [selectedFeed, setSelectedFeed] = useState<null | { id: string; name: string; image: string; info?: string }>(null);
   const { strings, language } = useLanguage();
   const [enabledFeeds, setEnabledFeeds] = useState<string[] | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   // Theme colors
   const backgroundColor = useThemeColor({}, 'background');
@@ -190,42 +191,44 @@ export function RSSFeed() {
     return () => { feedSettingsEmitter.off('feedsChanged', handler); };
   }, []);
 
-  useEffect(() => {
-    async function loadFeeds() {
-      setLoading(true);
-      // Get all feed URLs for the current language
-      const feedTasks = FEEDS.map(feed => {
-        const url = feed.urls[language] || feed.urls.default;
-        return fetchRSS(url).then(({ items, feedMeta }) => {
-          // Use feed.image from config if set, otherwise use the RSS <image><url>
-          const feedImage = feed.image || feedMeta.feedImage || '';
-          return {
+  async function loadFeeds(isRefresh = false) {
+    if (!isRefresh) setLoading(true);
+    // Get all feed URLs for the current language
+    const feedTasks = FEEDS.map(feed => {
+      const url = feed.urls[language] || feed.urls.default;
+      return fetchRSS(url).then(({ items, feedMeta }) => {
+        // Use feed.image from config if set, otherwise use the RSS <image><url>
+        const feedImage = feed.image || feedMeta.feedImage || '';
+        return {
+          feedId: feed.id,
+          feedMeta: {
+            ...feedMeta,
+            feedImage,
+          },
+          items: items.map((item: any) => ({
+            ...item,
             feedId: feed.id,
-            feedMeta: {
-              ...feedMeta,
-              feedImage,
-            },
-            items: items.map((item: any) => ({
-              ...item,
-              feedId: feed.id,
-              feedName: feed.name[language] || feed.name.default,
-              feedImage,
-            })),
-          };
-        });
+            feedName: feed.name[language] || feed.name.default,
+            feedImage,
+          })),
+        };
       });
-      // Fetch all feeds in parallel
-      const allFeeds = await Promise.all(feedTasks);
-      // Flatten and sort by pubDate (descending)
-      const allEntries = allFeeds.flatMap(f => f.items).sort((a, b) => {
-        const dateA = new Date(a.pubDate).getTime();
-        const dateB = new Date(b.pubDate).getTime();
-        return dateB - dateA;
-      });
-      setEntries(allEntries);
-      setFeedMetas(Object.fromEntries(allFeeds.map(f => [f.feedId, f.feedMeta])));
-      setLoading(false);
-    }
+    });
+    // Fetch all feeds in parallel
+    const allFeeds = await Promise.all(feedTasks);
+    // Flatten and sort by pubDate (descending)
+    const allEntries = allFeeds.flatMap(f => f.items).sort((a, b) => {
+      const dateA = new Date(a.pubDate).getTime();
+      const dateB = new Date(b.pubDate).getTime();
+      return dateB - dateA;
+    });
+    setEntries(allEntries);
+    setFeedMetas(Object.fromEntries(allFeeds.map(f => [f.feedId, f.feedMeta])));
+    if (!isRefresh) setLoading(false);
+    setRefreshing(false);
+  }
+
+  useEffect(() => {
     loadFeeds();
   }, [language]);
 
@@ -250,7 +253,7 @@ export function RSSFeed() {
     ? filteredEntries.filter(e => e.feedId === selectedFeed.id)
     : filteredEntries;
 
-  if (loading || enabledFeeds === null) {
+  if ((loading && !refreshing) || enabledFeeds === null) {
     return (
       <View style={[styles.centered, { backgroundColor }]}>
         <ActivityIndicator size="large" color={iconColor} />
@@ -396,6 +399,11 @@ export function RSSFeed() {
           );
         }}
         ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+        refreshing={refreshing}
+        onRefresh={() => {
+          setRefreshing(true);
+          loadFeeds(true);
+        }}
       />
     </View>
   );
