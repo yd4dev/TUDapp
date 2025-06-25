@@ -1,4 +1,4 @@
-package com.anonymous.tudapp
+package com.yd4dev.tudapp
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

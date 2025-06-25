@@ -1,4 +1,4 @@
-package com.anonymous.tudapp
+package com.yd4dev.tudapp
 
 import android.app.Application
 import android.content.res.Configuration
