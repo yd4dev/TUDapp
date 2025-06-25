@@ -1,14 +1,84 @@
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { MaterialIcons } from '@expo/vector-icons';
 import CookieManager from '@react-native-cookies/cookies';
+import { selectAll, selectOne } from 'css-select';
 import { useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
+import * as WebBrowser from 'expo-web-browser';
+import { parseDocument } from 'htmlparser2';
 import React, { useState } from 'react';
-import { ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useLanguage } from '../../constants/LanguageContext';
 
 // TUfind login URL
 const LOGIN_URL = 'https://tufind.hds.hebis.de/Shibboleth.sso/ULBDA?target=https%3A%2F%2Ftufind.hds.hebis.de%2FMyResearch%2FHome%3Fauth_method%3DShibboleth/';
+
+// Helper: Parse loans from HTML using htmlparser2 and css-select
+function getText(el: any): string {
+  if (!el) return '';
+  if (el.type === 'text') return el.data;
+  if (el.children) return el.children.map(getText).join('');
+  return '';
+}
+
+function parseLoans(html: string) {
+  const doc = parseDocument(html);
+  const items = selectAll('.result-list .result-list-item', doc);
+  return items.map(item => {
+    // Title
+    const titleLinks = selectAll('.title > .title > a.title', item);
+    const title = titleLinks.length ? getText(titleLinks[titleLinks.length - 1]).trim() : '';
+    // Details block
+    const details = selectOne('#title-details', item);
+    const detailsText = details ? getText(details) : '';
+    const author = detailsText.match(/von:\s*([^\n]+)/)?.[1]?.trim() || '';
+    const signature = detailsText.match(/Signatur:\s*([^\n]+)/)?.[1]?.trim() || '';
+    const renewCount = detailsText.match(/Verlängert:\s*(\d+)/)?.[1]?.trim() || '';
+    const dueDate = detailsText.match(/Rückgabedatum:\s*([\d.]+)/)?.[1]?.trim() || '';
+    // Cover image
+    const coverImg = selectOne('img.recordcover', item);
+    let cover = '';
+    if (
+      coverImg &&
+      typeof coverImg === 'object' &&
+      'attribs' in coverImg &&
+      (coverImg as any).attribs.src
+    ) {
+      cover = (coverImg as any).attribs.src;
+    }
+    return { title, author, signature, renewCount, dueDate, cover };
+  });
+}
+
+function LoanCard({ loan, styles }: { loan: any; styles: any }) {
+  return (
+    <View style={styles.card}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        {/* No cover image or space for it */}
+        <View style={{ flex: 1 }}>
+          <Text style={styles.loanTitle}>{loan.title}</Text>
+          {loan.author ? <Text style={styles.loanAuthor}>{loan.author}</Text> : null}
+          {loan.signature ? <Text style={styles.loanSignature}>{loan.signature}</Text> : null}
+        </View>
+      </View>
+      <View style={{ flexDirection: 'row', marginTop: 8, alignItems: 'center' }}>
+        {loan.renewCount !== '' && (
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <MaterialIcons name="history" size={16} color={styles.loanMeta.color} style={{ marginRight: 4 }} />
+            <Text style={styles.loanMeta}>{loan.renewCount}</Text>
+          </View>
+        )}
+        {loan.dueDate && (
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
+            <MaterialIcons name="event" size={16} color={styles.loanMeta.color} style={{ marginRight: 4 }} />
+            <Text style={styles.loanMeta}>{loan.dueDate}</Text>
+          </View>
+        )}
+      </View>
+    </View>
+  );
+}
 
 export default function LoansScreen() {
   const { strings } = useLanguage();
@@ -41,11 +111,24 @@ export default function LoansScreen() {
   const loginUrlAccessCountRef = React.useRef(0);
   const LOGIN_URL_THRESHOLD = 10; // has to be at least 5 I think, but let's be safe
 
+  // Track last injected URL to avoid double-injecting
+  const lastInjectedUrlRef = React.useRef<string | null>(null);
+
   const navigation = useNavigation();
+
+  const fallbackTimeoutRef = React.useRef<any>(null);
 
   React.useEffect(() => {
     navigation.setOptions({
       title: strings.library,
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => WebBrowser.openBrowserAsync('https://tufind.hds.hebis.de/Shibboleth.sso/ULBDA?target=https%3A%2F%2Ftufind.hds.hebis.de%2FMyResearch%2FHome%3Fauth_method%3DShibboleth/')}
+          style={{ paddingHorizontal: 12 }}
+        >
+          <MaterialIcons name="open-in-new" size={24} color={textColor} />
+        </TouchableOpacity>
+      ),
     });
 
     (async () => {
@@ -56,7 +139,7 @@ export default function LoansScreen() {
       setFormUsername(storedUser || '');
       setFormPassword(storedPass || '');
     })();
-  }, [navigation, strings]);
+  }, [navigation, strings, textColor]);
 
   // Save credentials
   async function saveCredentials(user: string, pass: string) {
@@ -83,33 +166,89 @@ export default function LoansScreen() {
   // Handler for receiving HTML from WebView
   function handleWebViewMessage(event: any) {
     const htmlContent = event.nativeEvent.data;
+    console.log('Received HTML from WebView:', htmlContent.slice(0, 500));
     setHtml(htmlContent);
     setLoading(false);
+    setShowWebView(false);
+    lastInjectedUrlRef.current = null; // Reset for next load
+    if (fallbackTimeoutRef.current) {
+      clearTimeout(fallbackTimeoutRef.current);
+      fallbackTimeoutRef.current = null;
+    }
   }
 
   // Handler for WebView navigation state changes
   function handleWebViewNavigationStateChange(navState: any) {
-    console.log('WebView navigation state change:', navState.url);
+    console.log('WebView navigation state change:', navState.url, 'loading:', navState.loading);
     // Count accesses to the login URL
     if (navState.url.startsWith("https://idp2.hebis.de/ulb-darmstadt/profile/SAML2/Redirect/SSO")) {
       loginUrlAccessCountRef.current += 1;
+      console.log('Login URL access count:', loginUrlAccessCountRef.current);
       if (loginUrlAccessCountRef.current >= LOGIN_URL_THRESHOLD) {
         setShowWebView(false);
         setLoading(false);
         setHtml(null);
+        console.log('Login threshold reached, closing WebView.');
         return;
       }
     }
-    // Do NOT force-submit the SAML POST form; let the page handle it
+    if (navState.url.startsWith('https://tufind.hds.hebis.de/Shibboleth.sso/SAML2/POST')) {
+      console.log('Reached SAML POST page.');
+    }
     // Only extract HTML and close WebView if the page is fully loaded and not a SAML POST
     if (
-      (navState.url === 'https://tufind.hds.hebis.de/MyResearch/Home?auth_method=Shibboleth/' ||
-       navState.url === 'https://tufind.hds.hebis.de/MyResearch/Home?auth_method=Shibboleth') &&
+      navState.url.startsWith('https://tufind.hds.hebis.de/MyResearch/Home?auth_method=Shibboleth') &&
       !navState.loading
     ) {
+      console.log('Injecting JS to post HTML from MyResearch/Home page:', navState.url);
       setLoading(true);
       webViewRef.current?.injectJavaScript(`window.ReactNativeWebView.postMessage(document.documentElement.outerHTML); true;`);
       setTimeout(() => setShowWebView(false), 500);
+    }
+  }
+
+  function handleWebViewLoadStart(syntheticEvent: any) {
+    const { nativeEvent } = syntheticEvent;
+    console.log('WebView onLoadStart:', nativeEvent.url);
+  }
+
+  function handleWebViewLoadProgress(syntheticEvent: any) {
+    const { nativeEvent } = syntheticEvent;
+    console.log('WebView onLoadProgress:', nativeEvent.url, 'progress:', nativeEvent.progress);
+    if (
+      nativeEvent.url.includes('/MyResearch/Home?auth_method=Shibboleth') &&
+      nativeEvent.progress > 0.8 &&
+      lastInjectedUrlRef.current !== nativeEvent.url
+    ) {
+      console.log('Injecting JS to post HTML from onLoadProgress:', nativeEvent.url);
+      webViewRef.current?.injectJavaScript(
+        "window.ReactNativeWebView.postMessage(document.documentElement.outerHTML); true;"
+      );
+      lastInjectedUrlRef.current = nativeEvent.url;
+    }
+  }
+
+  function handleWebViewLoadEnd(syntheticEvent: any) {
+    const { nativeEvent } = syntheticEvent;
+    const url = nativeEvent.url;
+    console.log('WebView onLoadEnd:', url);
+    if (
+      url.includes('/MyResearch/Home?auth_method=Shibboleth')
+    ) {
+      console.log('Injecting JS to post HTML from onLoadEnd:', url);
+      webViewRef.current?.injectJavaScript(
+        "window.ReactNativeWebView.postMessage(document.documentElement.outerHTML); true;"
+      );
+    }
+    // Existing login injection logic
+    if (
+      url.includes('idp2.hebis.de') &&
+      loginInjectionRef.current !== url
+    ) {
+      loginInjectionRef.current = url;
+      setTimeout(() => {
+        webViewRef.current?.injectJavaScript(getInjectedJS(username, password));
+      }, 300); // Give the page a short time to render before injecting
     }
   }
 
@@ -123,22 +262,13 @@ export default function LoansScreen() {
       await CookieManager.clearAll(true);
     } catch {}
     setShowWebView(true);
-    setLoading(false);
+    // Fallback timeout to prevent infinite loading
+    fallbackTimeoutRef.current = setTimeout(() => {
+      setLoading(false);
+      setShowWebView(false);
+      setHtml(null);
+    }, 20000); // 20 seconds fallback
   };
-
-  function handleWebViewLoadEnd(syntheticEvent: any) {
-    const { nativeEvent } = syntheticEvent;
-    const url = nativeEvent.url;
-    if (
-      url.includes('idp2.hebis.de') &&
-      loginInjectionRef.current !== url
-    ) {
-      loginInjectionRef.current = url;
-      setTimeout(() => {
-        webViewRef.current?.injectJavaScript(getInjectedJS(username, password));
-      }, 300); // Give the page a short time to render before injecting
-    }
-  }
 
   // Auto-login if credentials are present and not already showing data or loading
   React.useEffect(() => {
@@ -159,6 +289,11 @@ export default function LoansScreen() {
   // UI
   const showData = !!html;
   const loggedIn = !!username && !!password;
+  let loans: any[] = [];
+  if (showData && html && !html.includes('Sie haben nichts von uns ausgeliehen.')) {
+    loans = parseLoans(html);
+    console.log('Parsed loans:', loans.length, loans);
+  }
 
   if (showWebView) {
     // Show loading indicator while WebView is working in the background
@@ -171,6 +306,8 @@ export default function LoansScreen() {
             ref={webViewRef}
             source={{ uri: webViewUrl }}
             onNavigationStateChange={handleWebViewNavigationStateChange}
+            onLoadStart={handleWebViewLoadStart}
+            onLoadProgress={handleWebViewLoadProgress}
             onMessage={handleWebViewMessage}
             onLoadEnd={handleWebViewLoadEnd}
             javaScriptEnabled
@@ -211,21 +348,21 @@ export default function LoansScreen() {
           html.includes("Sie haben nichts von uns ausgeliehen.") ? (
             <Text style={styles.noLoansText}>{strings.noLoans}</Text>
           ) : (
-            <ScrollView style={styles.scrollView}>
-              <Text style={styles.htmlText} selectable>{html}</Text>
-            </ScrollView>
+            <FlatList
+              data={loans}
+              keyExtractor={(_, i) => String(i)}
+              renderItem={({ item }) => <LoanCard loan={item} styles={styles} />}
+              contentContainerStyle={{ padding: 8, paddingBottom: 32, width: 340 }}
+              ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
+              style={{ marginTop: 24, width: 340 }}
+              refreshing={loading}
+              onRefresh={() => {
+                setHtml(null);
+                loginUrlAccessCountRef.current = 0;
+                handleShowWebView();
+              }}
+            />
           )
-        )}
-        {showData && (
-          <Button
-            title={strings.update}
-            onPress={() => {
-              setHtml(null);
-              loginUrlAccessCountRef.current = 0;
-              handleShowWebView();
-            }}
-            color={buttonColor}
-          />
         )}
         {!showData && (
           <View style={styles.loginForm}>
@@ -287,7 +424,7 @@ const getStyles = ({ backgroundColor, textColor, inputBackground, inputBorder, p
   container: {
     flex: 1,
     backgroundColor,
-    padding: 24,
+    padding: 10,
   },
   webViewContainer: {
     flex: 1,
@@ -300,13 +437,8 @@ const getStyles = ({ backgroundColor, textColor, inputBackground, inputBorder, p
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 16,
-    marginTop: 8,
-    position: 'absolute',
-    top: 24,
-    left: 24,
-    right: 24,
-    zIndex: 10,
+    marginBottom: 0,
+    marginTop: 0,
   },
   loggedInText: {
     color: textColor,
@@ -367,5 +499,40 @@ const getStyles = ({ backgroundColor, textColor, inputBackground, inputBorder, p
     fontSize: 16,
     marginTop: 24,
     textAlign: 'center',
+  },
+  card: {
+    borderRadius: 14,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: cardBackground,
+    backgroundColor: 'transparent',
+    marginBottom: 4,
+  },
+  coverImg: {
+    width: 48,
+    height: 64,
+    borderRadius: 6,
+    marginRight: 0,
+    backgroundColor: '#eee',
+  },
+  loanTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: textColor,
+    marginBottom: 2,
+  },
+  loanAuthor: {
+    fontSize: 14,
+    color: textColor,
+    marginBottom: 2,
+  },
+  loanSignature: {
+    fontSize: 13,
+    color: cardBackground,
+    marginBottom: 2,
+  },
+  loanMeta: {
+    fontSize: 13,
+    color: cardBackground,
   },
 });
