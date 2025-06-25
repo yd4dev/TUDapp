@@ -2,7 +2,7 @@ import { Colors } from '@/constants/Colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, AppState, Button, KeyboardAvoidingView, Modal, Platform, Image as RNImage, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, useColorScheme } from 'react-native';
+import { Animated, AppState, Button, KeyboardAvoidingView, Modal, Platform, Image as RNImage, StyleSheet, Text, TextInput, TouchableOpacity, View, useColorScheme } from 'react-native';
 
 import ValidBadge from '@/components/ValidBadge';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -252,7 +252,6 @@ export default function ID () {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <StudentID
           nachname={form.nachname}
           vorname={form.vorname}
@@ -262,7 +261,6 @@ export default function ID () {
           profilePicUri={profilePicUri}
           onPressProfilePic={handlePickProfilePic}
         />
-      </ScrollView>
       <Modal
         visible={modalVisible}
         animationType="slide"
