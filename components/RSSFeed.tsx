@@ -1,8 +1,9 @@
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as WebBrowser from 'expo-web-browser';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Image, LayoutAnimation, Linking, Modal, Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, UIManager, View } from 'react-native';
+import { ActivityIndicator, FlatList, Image, LayoutAnimation, Modal, Platform, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, UIManager, View } from 'react-native';
 import { feedSettingsEmitter } from '../app/(tabs)/settings';
 import { useLanguage } from '../constants/LanguageContext';
 import { FEEDS } from '../constants/feeds';
@@ -290,7 +291,7 @@ export function RSSFeed() {
                   <Text style={{ fontSize: 15, color: descColor, marginTop: 8, textAlign: 'center' }}>{stripHtmlTags(decodeEntities(feedMetas[selectedFeed.id]?.feedDescription))}</Text>
                 ) : null}
                 {feedMetas[selectedFeed.id]?.feedLink ? (
-                  <TouchableOpacity onPress={() => Linking.openURL(feedMetas[selectedFeed.id]?.feedLink)}>
+                  <TouchableOpacity onPress={() => WebBrowser.openBrowserAsync(feedMetas[selectedFeed.id]?.feedLink)}>
                     <Text style={{ color: iconColor, marginTop: 8, textDecorationLine: 'underline' }} numberOfLines={1}>
                       {feedMetas[selectedFeed.id]?.feedLink}
                     </Text>
@@ -335,7 +336,7 @@ export function RSSFeed() {
                       <Text style={styles.desc}>{stripHtmlTags(decodeEntities(item.description))}</Text>
                       <TouchableOpacity
                         style={styles.linkIconButton}
-                        onPress={() => Linking.openURL(item.link)}
+                        onPress={() => WebBrowser.openBrowserAsync(item.link)}
                         hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                       >
                         <Ionicons name="open-outline" size={20} color={iconColor} />
@@ -384,7 +385,7 @@ export function RSSFeed() {
                   <Text style={styles.desc}>{stripHtmlTags(decodeEntities(item.description))}</Text>
                   <TouchableOpacity
                     style={styles.linkIconButton}
-                    onPress={() => Linking.openURL(item.link)}
+                    onPress={() => WebBrowser.openBrowserAsync(item.link)}
                     hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                   >
                     <Ionicons name="open-outline" size={20} color={iconColor} />

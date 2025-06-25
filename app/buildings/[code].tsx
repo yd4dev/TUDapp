@@ -1,7 +1,8 @@
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { ActionSheetIOS, Alert, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActionSheetIOS, Alert, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import buildingsData from '../../assets/buildings.json';
 import { useLanguage } from '../../constants/LanguageContext';
 
@@ -57,13 +58,13 @@ export default function BuildingDetail() {
     ];
     const cancelButtonIndex = 3;
     const openInGoogleMaps = () => {
-      Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`);
+      WebBrowser.openBrowserAsync(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`);
     };
     const openInAppleMaps = () => {
-      Linking.openURL(`http://maps.apple.com/?q=${encodedAddress}`);
+      WebBrowser.openBrowserAsync(`http://maps.apple.com/?q=${encodedAddress}`);
     };
     const openInOSM = () => {
-      Linking.openURL(`https://www.openstreetmap.org/search?query=${encodedAddress}`);
+      WebBrowser.openBrowserAsync(`https://www.openstreetmap.org/search?query=${encodedAddress}`);
     };
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
@@ -106,7 +107,7 @@ export default function BuildingDetail() {
             <TouchableOpacity
               key={item.name + idx}
               disabled={!item.link}
-              onPress={() => item.link && Linking.openURL(item.link)}
+              onPress={() => item.link && WebBrowser.openBrowserAsync(item.link)}
             >
               <Text style={[styles.deptItem, item.link && styles.deptLink]}>{item.name}</Text>
             </TouchableOpacity>

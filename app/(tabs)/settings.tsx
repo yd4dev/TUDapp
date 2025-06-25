@@ -4,8 +4,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { EventEmitter } from 'events';
 import Constants from 'expo-constants';
 import { useFocusEffect, useNavigation } from 'expo-router';
+import * as WebBrowser from 'expo-web-browser';
 import React, { useEffect, useState } from 'react';
-import { Linking, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FEEDS } from '../../constants/feeds';
 import { useLanguage } from '../../constants/LanguageContext';
 
@@ -90,7 +91,7 @@ export default function SettingsScreen() {
         ))}
       </View>
       <View style={styles.section}>
-        <TouchableOpacity style={styles.linkRow} onPress={() => Linking.openURL(GITHUB_URL)}>
+        <TouchableOpacity style={styles.linkRow} onPress={() => WebBrowser.openBrowserAsync(GITHUB_URL)}>
           <Ionicons name="logo-github" size={22} color={themeIcon} style={{ marginRight: 8 }} />
           <Text style={[styles.linkText, { color: themeTint }]}>GitHub</Text>
         </TouchableOpacity>
