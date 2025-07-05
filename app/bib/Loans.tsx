@@ -51,6 +51,59 @@ function parseLoans(html: string) {
   });
 }
 
+// Function to save return date to calendar
+async function saveToCalendar(title: string, dueDate: string) {
+  try {
+    // Request calendar permissions
+    const { status } = await Calendar.requestCalendarPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert('Permission Required', 'Calendar permission is required to save the return date.');
+      return;
+    }
+
+    // Parse the due date (format: DD.MM.YYYY)
+    const [day, month, year] = dueDate.split('.').map(Number);
+    if (!day || !month || !year) {
+      Alert.alert('Invalid Date', 'Could not parse the return date.');
+      return;
+    }
+
+    // Create the event date (end of day)
+    const eventDate = new Date(year, month - 1, day, 23, 59, 0);
+    
+    // Get default calendar
+    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+    const defaultCalendar = calendars.find(cal => cal.isPrimary) || calendars[0];
+    
+    if (!defaultCalendar) {
+      Alert.alert('No Calendar', 'No calendar found to save the event.');
+      return;
+    }
+
+    // Create the calendar event
+    const eventDetails = {
+      title: `Return Book: ${title}`,
+      startDate: eventDate,
+      endDate: new Date(eventDate.getTime() + 60 * 60 * 1000), // 1 hour duration
+      timeZone: 'Europe/Berlin',
+      location: 'TU Darmstadt Library',
+      notes: `Return book "${title}" to TU Darmstadt Library`,
+      alarms: [{ relativeOffset: -60 * 60 * 24 }], // 1 day before
+    };
+
+    const eventId = await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
+    
+    if (eventId) {
+      Alert.alert('Success', 'Return date saved to calendar!');
+    } else {
+      Alert.alert('Error', 'Failed to save to calendar.');
+    }
+  } catch (error) {
+    console.error('Error saving to calendar:', error);
+    Alert.alert('Error', 'Failed to save to calendar. Please try again.');
+  }
+}
+
 function LoanCard({ loan, styles }: { loan: any; styles: any }) {
   return (
     <View style={styles.card}>
@@ -62,18 +115,28 @@ function LoanCard({ loan, styles }: { loan: any; styles: any }) {
           {loan.signature ? <Text style={styles.loanSignature}>{loan.signature}</Text> : null}
         </View>
       </View>
-      <View style={{ flexDirection: 'row', marginTop: 8, alignItems: 'center' }}>
-        {loan.renewCount !== '' && (
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <MaterialIcons name="history" size={16} color={styles.loanMeta.color} style={{ marginRight: 4 }} />
-            <Text style={styles.loanMeta}>{loan.renewCount}</Text>
-          </View>
-        )}
+      <View style={{ flexDirection: 'row', marginTop: 8, alignItems: 'center', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {loan.renewCount !== '' && (
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <MaterialIcons name="history" size={16} color={styles.loanMeta.color} style={{ marginRight: 4 }} />
+              <Text style={styles.loanMeta}>{loan.renewCount}</Text>
+            </View>
+          )}
+          {loan.dueDate && (
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
+              <MaterialIcons name="event" size={16} color={styles.loanMeta.color} style={{ marginRight: 4 }} />
+              <Text style={styles.loanMeta}>{loan.dueDate}</Text>
+            </View>
+          )}
+        </View>
         {loan.dueDate && (
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 16 }}>
-            <MaterialIcons name="event" size={16} color={styles.loanMeta.color} style={{ marginRight: 4 }} />
-            <Text style={styles.loanMeta}>{loan.dueDate}</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => saveToCalendar(loan.title, loan.dueDate)}
+            style={styles.calendarButton}
+          >
+            <MaterialIcons name="event-note" size={20} color={styles.loanMeta.color} />
+          </TouchableOpacity>
         )}
       </View>
     </View>
@@ -534,5 +597,10 @@ const getStyles = ({ backgroundColor, textColor, inputBackground, inputBorder, p
   loanMeta: {
     fontSize: 13,
     color: cardBackground,
+  },
+  calendarButton: {
+    padding: 8,
+    borderRadius: 20,
+    backgroundColor: 'transparent',
   },
 });
