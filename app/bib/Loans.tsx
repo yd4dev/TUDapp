@@ -2,12 +2,13 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { MaterialIcons } from '@expo/vector-icons';
 import CookieManager from '@react-native-cookies/cookies';
 import { selectAll, selectOne } from 'css-select';
+import * as Calendar from 'expo-calendar';
 import { useNavigation } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import * as WebBrowser from 'expo-web-browser';
 import { parseDocument } from 'htmlparser2';
 import React, { useState } from 'react';
-import { ActivityIndicator, Button, FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Button, FlatList, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useLanguage } from '../../constants/LanguageContext';
 
@@ -20,6 +21,81 @@ function getText(el: any): string {
   if (el.type === 'text') return el.data;
   if (el.children) return el.children.map(getText).join('');
   return '';
+}
+
+// Helper: Generate a unique key for storing calendar event IDs (iOS only)
+function getCalendarEventKey(title: string, dueDate: string): string {
+  return `calendar_event_${title}_${dueDate}`.replace(/[^a-zA-Z0-9_]/g, '_');
+}
+
+// Helper: Save calendar event ID to SecureStore (iOS only)
+async function saveCalendarEventId(title: string, dueDate: string, eventId: string) {
+  const key = getCalendarEventKey(title, dueDate);
+  await SecureStore.setItemAsync(key, eventId);
+}
+
+// Helper: Get calendar event ID from SecureStore (iOS only)
+async function getCalendarEventId(title: string, dueDate: string): Promise<string | null> {
+  const key = getCalendarEventKey(title, dueDate);
+  return await SecureStore.getItemAsync(key);
+}
+
+// Helper: Remove calendar event ID from SecureStore (iOS only)
+async function removeCalendarEventId(title: string, dueDate: string) {
+  const key = getCalendarEventKey(title, dueDate);
+  await SecureStore.deleteItemAsync(key);
+}
+
+// Helper: Get all stored calendar event keys (iOS only)
+async function getAllCalendarEventKeys(): Promise<string[]> {
+  // Note: SecureStore doesn't have a getAllKeys method, so we'll need to track keys separately
+  const storedKeys = await SecureStore.getItemAsync('calendar_event_keys');
+  return storedKeys ? JSON.parse(storedKeys) : [];
+}
+
+// Helper: Save calendar event key to the list (iOS only)
+async function saveCalendarEventKey(title: string, dueDate: string) {
+  const key = getCalendarEventKey(title, dueDate);
+  const existingKeys = await getAllCalendarEventKeys();
+  if (!existingKeys.includes(key)) {
+    existingKeys.push(key);
+    await SecureStore.setItemAsync('calendar_event_keys', JSON.stringify(existingKeys));
+  }
+}
+
+// Helper: Remove calendar event key from the list (iOS only)
+async function removeCalendarEventKey(title: string, dueDate: string) {
+  const key = getCalendarEventKey(title, dueDate);
+  const existingKeys = await getAllCalendarEventKeys();
+  const updatedKeys = existingKeys.filter(k => k !== key);
+  await SecureStore.setItemAsync('calendar_event_keys', JSON.stringify(updatedKeys));
+}
+
+// Helper: Clean up deleted calendar events (iOS only)
+async function cleanupDeletedCalendarEvents() {
+  if (Platform.OS !== 'ios') return;
+  
+  try {
+    const eventKeys = await getAllCalendarEventKeys();
+    
+    for (const key of eventKeys) {
+      const eventId = await SecureStore.getItemAsync(key);
+      if (eventId) {
+        try {
+          // Try to get the event from the calendar
+          await Calendar.getEventAsync(eventId);
+          // If successful, event still exists
+        } catch (error) {
+          // Event doesn't exist anymore, remove it from storage
+          console.log(`Removing deleted calendar event: ${key}`);
+          await SecureStore.deleteItemAsync(key);
+          await removeCalendarEventKey(key.split('calendar_event_')[1], key.split('_').slice(-3).join('_')); // Extract title and date
+        }
+      }
+    }
+  } catch (error) {
+    console.error('Error cleaning up deleted calendar events:', error);
+  }
 }
 
 function parseLoans(html: string) {
@@ -69,42 +145,91 @@ async function saveToCalendar(title: string, dueDate: string) {
     }
 
     // Create the event date (end of day)
-    const eventDate = new Date(year, month - 1, day, 23, 59, 0);
-    
-    // Get default calendar
-    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-    const defaultCalendar = calendars.find(cal => cal.isPrimary) || calendars[0];
-    
-    if (!defaultCalendar) {
-      Alert.alert('No Calendar', 'No calendar found to save the event.');
-      return;
-    }
+    const eventDate = new Date(year, month - 1, day, 0, 0, 0);
 
     // Create the calendar event
     const eventDetails = {
       title: `Return Book: ${title}`,
       startDate: eventDate,
-      endDate: new Date(eventDate.getTime() + 60 * 60 * 1000), // 1 hour duration
+      endDate: eventDate,
       timeZone: 'Europe/Berlin',
-      location: 'TU Darmstadt Library',
-      notes: `Return book "${title}" to TU Darmstadt Library`,
-      alarms: [{ relativeOffset: -60 * 60 * 24 }], // 1 day before
+      location: 'Universitäts- und Landesbibliothek Darmstadt',
+      alarms: [{ relativeOffset: -60 * 24 }], // 1 day before
+      allDay: true,
     };
 
-    const eventId = await Calendar.createEventAsync(defaultCalendar.id, eventDetails);
-    
-    if (eventId) {
-      Alert.alert('Success', 'Return date saved to calendar!');
-    } else {
-      Alert.alert('Error', 'Failed to save to calendar.');
+    let result = await Calendar.createEventInCalendarAsync(eventDetails);
+    if (Platform.OS === 'ios') {
+      if (result.action === 'saved' && result.id) {
+        // Save the event ID for future reference (iOS only)
+        await saveCalendarEventId(title, dueDate, result.id);
+        await saveCalendarEventKey(title, dueDate);
+      }
     }
+    
   } catch (error) {
     console.error('Error saving to calendar:', error);
     Alert.alert('Error', 'Failed to save to calendar. Please try again.');
   }
 }
 
-function LoanCard({ loan, styles }: { loan: any; styles: any }) {
+
+
+function LoanCard({ loan, styles, onCalendarAction, calendarRefreshKey }: { loan: any; styles: any; onCalendarAction: (title: string, dueDate: string) => Promise<void>; calendarRefreshKey: number }) {
+  const [hasCalendarEvent, setHasCalendarEvent] = React.useState(false);
+
+  // Check if calendar event exists for this loan (iOS only)
+  React.useEffect(() => {
+    const checkCalendarEvent = async () => {
+      if (Platform.OS === 'ios' && loan.title && loan.dueDate) {
+        const eventId = await getCalendarEventId(loan.title, loan.dueDate);
+        if (eventId) {
+          try {
+            // Verify the event still exists in the calendar
+            await Calendar.getEventAsync(eventId);
+            setHasCalendarEvent(true);
+          } catch (error) {
+            // Event doesn't exist anymore, remove it from storage
+            console.log('Calendar event no longer exists, removing from storage');
+            await removeCalendarEventId(loan.title, loan.dueDate);
+            await removeCalendarEventKey(loan.title, loan.dueDate);
+            setHasCalendarEvent(false);
+          }
+        } else {
+          setHasCalendarEvent(false);
+        }
+      }
+    };
+    checkCalendarEvent();
+  }, [loan.title, loan.dueDate]);
+
+  // Listen for calendar refresh events (iOS only)
+  React.useEffect(() => {
+    const checkCalendarEvent = async () => {
+      if (Platform.OS === 'ios' && loan.title && loan.dueDate) {
+        const eventId = await getCalendarEventId(loan.title, loan.dueDate);
+        if (eventId) {
+          try {
+            // Verify the event still exists in the calendar
+            await Calendar.getEventAsync(eventId);
+            setHasCalendarEvent(true);
+          } catch (error) {
+            // Event doesn't exist anymore, remove it from storage
+            console.log('Calendar event no longer exists, removing from storage');
+            await removeCalendarEventId(loan.title, loan.dueDate);
+            await removeCalendarEventKey(loan.title, loan.dueDate);
+            setHasCalendarEvent(false);
+          }
+        } else {
+          setHasCalendarEvent(false);
+        }
+      }
+    };
+    // Add a small delay to ensure the event is saved before checking
+    const timeoutId = setTimeout(checkCalendarEvent, 500);
+    return () => clearTimeout(timeoutId);
+  }, [calendarRefreshKey]);
+
   return (
     <View style={styles.card}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -132,10 +257,14 @@ function LoanCard({ loan, styles }: { loan: any; styles: any }) {
         </View>
         {loan.dueDate && (
           <TouchableOpacity
-            onPress={() => saveToCalendar(loan.title, loan.dueDate)}
+            onPress={() => onCalendarAction(loan.title, loan.dueDate)}
             style={styles.calendarButton}
           >
-            <MaterialIcons name="event-note" size={20} color={styles.loanMeta.color} />
+            <MaterialIcons 
+              name={Platform.OS === 'ios' && hasCalendarEvent ? "event-available" : "event-note"} 
+              size={20} 
+              color={Platform.OS === 'ios' && hasCalendarEvent ? "#4CAF50" : styles.loanMeta.color} 
+            />
           </TouchableOpacity>
         )}
       </View>
@@ -164,6 +293,7 @@ export default function LoansScreen() {
 
   const [formUsername, setFormUsername] = useState('');
   const [formPassword, setFormPassword] = useState('');
+  const [calendarRefreshKey, setCalendarRefreshKey] = useState(0);
 
   const webViewRef = React.useRef<any>(null);
 
@@ -180,6 +310,64 @@ export default function LoansScreen() {
   const navigation = useNavigation();
 
   const fallbackTimeoutRef = React.useRef<any>(null);
+
+  // Function to open existing calendar event (iOS only)
+  const openExistingCalendarEvent = async (title: string, dueDate: string) => {
+    try {
+      const eventId = await getCalendarEventId(title, dueDate);
+      if (eventId) {
+        try {
+          // Verify the event still exists before opening it
+          await Calendar.getEventAsync(eventId);
+          const result = await Calendar.openEventInCalendarAsync({id: eventId});
+          
+          // Check if user deleted the event from the calendar app
+          if (result.action === 'deleted') {
+            // Remove the event ID from storage since it was deleted
+            await removeCalendarEventId(title, dueDate);
+            await removeCalendarEventKey(title, dueDate);
+            // Force a re-render to update the calendar icon
+            setCalendarRefreshKey(prev => prev + 1);
+          }
+        } catch (error) {
+          // Event doesn't exist anymore, remove it from storage and create a new one
+          await removeCalendarEventId(title, dueDate);
+          await removeCalendarEventKey(title, dueDate);
+          await saveToCalendar(title, dueDate);
+        }
+      } else {
+        Alert.alert('Event Not Found', 'Calendar event not found. Please create a new one.');
+      }
+    } catch (error) {
+      console.error('Error opening calendar event:', error);
+      Alert.alert('Error', 'Failed to open calendar event. Please try again.');
+    }
+  };
+
+  // Function to handle calendar button press
+  const handleCalendarButtonPress = async (title: string, dueDate: string) => {
+    try {
+      if (Platform.OS === 'ios') {
+        // On iOS, check if event exists and open it, otherwise create new one
+        const existingEventId = await getCalendarEventId(title, dueDate);
+        if (existingEventId) {
+          // Event exists, open it
+          await openExistingCalendarEvent(title, dueDate);
+        } else {
+          // Event doesn't exist, create new one
+          await saveToCalendar(title, dueDate);
+          // Force a re-render of the loan cards to update the calendar icon
+          setCalendarRefreshKey(prev => prev + 1);
+        }
+      } else {
+        // On Android, always create new event since we can't track existing ones
+        await saveToCalendar(title, dueDate);
+      }
+    } catch (error) {
+      console.error('Error handling calendar button press:', error);
+      Alert.alert('Error', 'Failed to handle calendar action. Please try again.');
+    }
+  };
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -201,6 +389,9 @@ export default function LoansScreen() {
       setPassword(storedPass || '');
       setFormUsername(storedUser || '');
       setFormPassword(storedPass || '');
+      
+      // Clean up deleted calendar events when page loads (iOS only)
+      await cleanupDeletedCalendarEvents();
     })();
   }, [navigation, strings, textColor]);
 
@@ -414,7 +605,7 @@ export default function LoansScreen() {
             <FlatList
               data={loans}
               keyExtractor={(_, i) => String(i)}
-              renderItem={({ item }) => <LoanCard loan={item} styles={styles} />}
+              renderItem={({ item }) => <LoanCard loan={item} styles={styles} onCalendarAction={handleCalendarButtonPress} calendarRefreshKey={calendarRefreshKey} />}
               contentContainerStyle={{ padding: 8, paddingBottom: 32, width: 340 }}
               ItemSeparatorComponent={() => <View style={{ height: 12 }} />}
               style={{ marginTop: 24, width: 340 }}
