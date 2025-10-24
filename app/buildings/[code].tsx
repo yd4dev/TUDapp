@@ -2,7 +2,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { ActionSheetIOS, Alert, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActionSheetIOS, Alert, Linking, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import buildingsData from '../../assets/buildings.json';
 import { useLanguage } from '../../constants/LanguageContext';
 
@@ -51,20 +51,20 @@ export default function BuildingDetail() {
     const address = `${building.Adresse}, ${building.PLZ_Ort}`;
     const encodedAddress = encodeURIComponent(address);
     const options = [
-      'Google Maps',
       'Apple Maps',
+      'Google Maps',
       'OpenStreetMap',
       'Abbrechen'
     ];
     const cancelButtonIndex = 3;
     const openInGoogleMaps = () => {
-      WebBrowser.openBrowserAsync(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`);
+      Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`);
     };
     const openInAppleMaps = () => {
-      WebBrowser.openBrowserAsync(`http://maps.apple.com/?q=${encodedAddress}`);
+      Linking.openURL(`http://maps.apple.com/?q=${encodedAddress}`);
     };
     const openInOSM = () => {
-      WebBrowser.openBrowserAsync(`https://www.openstreetmap.org/search?query=${encodedAddress}`);
+      Linking.openURL(`https://www.openstreetmap.org/search?query=${encodedAddress}`);
     };
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
@@ -73,8 +73,8 @@ export default function BuildingDetail() {
           cancelButtonIndex,
         },
         (buttonIndex) => {
-          if (buttonIndex === 0) openInGoogleMaps();
-          else if (buttonIndex === 1) openInAppleMaps();
+          if (buttonIndex === 0) openInAppleMaps();
+          else if (buttonIndex === 1) openInGoogleMaps();
           else if (buttonIndex === 2) openInOSM();
         }
       );
@@ -83,6 +83,7 @@ export default function BuildingDetail() {
         'Karte öffnen',
         'Mit welcher App möchtest du die Adresse öffnen?',
         [
+          { text: 'Apple Maps', onPress: openInAppleMaps },
           { text: 'Google Maps', onPress: openInGoogleMaps },
           { text: 'OpenStreetMap', onPress: openInOSM },
           { text: 'Abbrechen', style: 'cancel' },
